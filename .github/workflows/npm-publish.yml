@@ -30,6 +30,9 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
       - run: npm install
-      - run: npm run build --if-present
+      - run: node_modules/.bin/tsc
+      - run: node_modules/.bin/gulp
+      - run: node_modules/.bin/gulp declarations
+      - run: node_modules/.bin/gulp docs
       - run: npm test
       - run: npm publish
