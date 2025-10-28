@@ -4,7 +4,7 @@ import * as record from 'N/record'
 /**
  * Ship Item base class
  */
-export class ShipItem extends NetsuiteRecord {
+export class ShipItemBase extends NetsuiteRecord {
 
 
    static override recordType() { return record.Type.SHIP_ITEM }
