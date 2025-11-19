@@ -120,7 +120,14 @@ export abstract class NetsuiteCurrentRecord {
             // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
             // to justify
             log.debug(`toJSON skipping field ${key}`, `workaround to avoid NS erroring on the getText() on a new record`)
-         } else result[key] = this[key]
+            continue;
+         } else if(key.substring(0,7) === '__join_') {
+            // skip join backing properties
+            log.debug(`toJSON skipping field ${key}`, `workaround to avoid NS erroring on joined pusedo fields`)
+            continue
+         }
+         
+         result[key] = this[key]
       }
       return result
    }
@@ -333,6 +340,82 @@ function formattedDescriptor<T extends NetsuiteCurrentRecord> (formatType: forma
 }
 
 /**
+ * Helper function to create an alias property that maps to another field id
+ * Example usage @FieldType.alias('custentity_foo') foo: string
+ * 
+ * @param fieldId 
+ * @returns any
+ */
+function Alias(fieldId: string) {
+	return (target, propertyKey: string) => {
+		Object.defineProperty(target, propertyKey, {
+			get: function () {
+				return this[fieldId];
+			},
+			set: function (value) {
+				if (value === undefined) {
+					return;
+				}
+
+				this[fieldId] = value;
+			},
+			enumerable: true,
+			configurable: true,
+		});
+	};
+}
+
+/**
+ * Helper decorator to define a join relationship to another record type.
+ * Example usage:
+ * @FieldType.join('entity', Customer) customer: Customer
+ * 
+ * @param fieldId 
+ * @param classReference 
+ * @returns NCurrentRecord
+ */
+function Join(fieldId: string, classReference) {
+	return (target, propertyKey: string) => {
+		const privateInstanceKey = `__join_${fieldId}`;
+
+		Object.defineProperty(target, propertyKey, {
+			get: function () {
+				if (!this[privateInstanceKey]) {
+					try {
+						Object.defineProperty(this, privateInstanceKey, {
+							value: new classReference(this.nsrecord.getValue({ fieldId: fieldId })),
+							writable: true,
+							enumerable: false,
+							configurable: true,
+						});
+					} catch (_e) {
+						this[privateInstanceKey] = new classReference(this.nsrecord.getValue({ fieldId: fieldId }));
+					}
+				}
+
+				return this[privateInstanceKey] ? this[privateInstanceKey] : null;
+			},
+			set: function (value) {
+				if (value === undefined) {
+					log.debug(`ignoring field [${fieldId}]`, 'field value is undefined');
+					return;
+				}
+
+				if (value instanceof classReference) {
+					this[fieldId] = value.id;
+				} else {
+					this[fieldId] = value;
+				}
+
+				delete this[privateInstanceKey];
+			},
+			enumerable: true,
+			configurable: true,
+		});
+	};
+}
+
+/**
  *  Netsuite field types - decorate your model properties with these to tie netsuite field types to your
  *  model's field type.
  *  To get 'Text' rather than field value, suffix your property name with 'Text' e.g. 'afieldText' for the
@@ -370,6 +453,10 @@ export namespace FieldType {
     */
    export var select = defaultDescriptor
    export var textarea = defaultDescriptor
+
+   export const alias = Alias;
+   export const join = Join;
+
    /**
     * this isn't a native NS 'field' type, but rather is used to indicate a property should represent a NS sub-list.
     * Pass a type derived from SublistLine that describes the sublist fields you want. e.g. Invoice.ItemSublistLine

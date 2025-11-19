@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest --config test/jest.config.json",
     "prepublishOnly": "tsc; gulp; gulp declarations",
-    "postinstall": "node postInstall.js"
+    "postinstall": ""
   },
   "author": "Explore Consulting",
   "license": "MIT",
