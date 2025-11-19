@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "umd",
     "target": "ES2019",
+    "outDir": "dist",
     "noImplicitAny": false,
     "strictNullChecks" :true,
     // using this lets us have rootDirs resolve stuff like moment with "./moment"
