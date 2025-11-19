@@ -1,5 +1,9 @@
+NS-Tools/DAL is a fork of expertconsulting/netsuite-fasttrack-toolkit-ss2.
 
-<img src="media/images/NFT_logo_without_text.svg" alt="NFT Logo" width="200" height="200" />
+Original project license is MIT based on the project.json license grant, and issue#4 under the original repository (https://web.archive.org/web/20201019155508/https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/issues/4)
+
+
+-------------- Original Readme ----------
 
 NFT (NetSuite Fasttrack Toolkit)
 ==============================================
