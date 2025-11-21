@@ -24,6 +24,6 @@
       ]
     }
   },
-  "include": ["./*.ts", "DataAccess/*.ts"],
+  "include": ["./*.ts", "DataAccess/**/*.ts"],
   "exclude": ["node_modules", "declarations", "dist",  "__mocks__"]
 }

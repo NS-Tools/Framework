@@ -10,8 +10,8 @@ module (in the correct path of ./lodash assuming lodash is installed in the same
 */
 
 import * as LogManager from './EC_Logger'
-import {CustomerBase} from "./DataAccess/CustomerBase"
-import {ItemSublist, SalesOrderBase} from "./DataAccess/SalesOrderBase";
+import {CustomerBase} from "./DataAccess/BaseRecords/CustomerBase"
+import {ItemSublist, SalesOrderBase} from "./DataAccess/BaseRecords/SalesOrderBase";
 import { FieldType, NetsuiteRecord } from './DataAccess/Record'
 import { Sublist } from './DataAccess/Sublist'
 import * as _ from "lodash"

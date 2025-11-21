@@ -3,12 +3,13 @@
  *
  */
 
-import * as record from 'N/record'
-import * as format from 'N/format'
-import * as LogManager from '../EC_Logger'
-import { Sublist, SublistLine } from './Sublist'
+import * as record from 'N/record';
+import { SublistLine } from './Sublist';
+import { FieldType as importFieldType } from './FieldType';
+import * as LogManager from '../EC_Logger';
 
-const log = LogManager.getLogger('nsdal')
+const log = LogManager.getLogger('DataAccess.Record');
+
 // from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
 export type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 // adds `null` as a union to type T. Use this to mark record properties as explicitly nullable
@@ -181,7 +182,7 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
  * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
  * Text suffix removed)
  */
-const parseProp = suffixParser('Text')
+export const parseProp = suffixParser('Text')
 
 /**
  * returns a function for parsing property names from a declaration (e.g.
@@ -191,7 +192,7 @@ const parseProp = suffixParser('Text')
  * @returns function that takes a property name and returns a pair [flag indicating this field matched the suffix,
  * the stripped property name (with suffix removed)]
  */
-function suffixParser (suffixToSearch: string): (propertyKey: string) => [boolean, string] {
+export function suffixParser (suffixToSearch: string): (propertyKey: string) => [boolean, string] {
    const suffixLength = suffixToSearch.length
    return function (propertyKey: string) {
       const endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch
@@ -205,215 +206,10 @@ function suffixParser (suffixToSearch: string): (propertyKey: string) => [boolea
  * @returns pair consisting of a flag indicating this is actually a sublist and the actual ns sublist name (with
  * Sublist suffix removed)
  */
-const parseSublistProp = suffixParser('Sublist')
-
-/**
- * Generic decorator factory with basic default algorithm that exposes the field value directly with no
- * other processing. If the property name ends with "Text" then the property will use getText()/setText()
- *
- * @returns a decorator that returns a property descriptor to be used
- * with Object.defineProperty
- */
-export function defaultDescriptor<T extends NetsuiteCurrentRecord> (target: T, propertyKey: string): any {
-   const [isTextField, nsfield] = parseProp(propertyKey)
-   return {
-      get: function () {
-         log.debug('field GET', `${nsfield}, as text:${isTextField}`)
-         return isTextField ? this.nsrecord.getText({ fieldId: nsfield })
-            : this.nsrecord.getValue({ fieldId: nsfield })
-      },
-      set: function (value) {
-         // ignore undefined's
-         if (value !== undefined) {
-            if (isTextField) this.nsrecord.setText({ fieldId: nsfield, text: value })
-            else this.nsrecord.setValue({ fieldId: nsfield, value: value })
-         } else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
-      },
-      enumerable: true //default is false
-   }
-}
-
-/**
- * Just like the default descriptor but calls Number() on the value. This exists for numeric types that
- * would blow up if you tried to assign number primitive values to a field. Don't know why - did various checks
- * with lodash and typeof to confirm the raw value was a number but only passing through Number() worked on sets.
- * Reads still seem to return a number.
- * @returns an object property descriptor to be used
- * with Object.defineProperty
- */
-export function numericDescriptor<T extends NetsuiteCurrentRecord> (target: T, propertyKey: string): any {
-   const [isTextField, nsfield] = parseProp(propertyKey)
-   return {
-      get: function () {
-         return isTextField ? this.nsrecord.getText({ fieldId: nsfield })
-            : this.nsrecord.getValue({ fieldId: nsfield })
-      },
-      set: function (value) {
-         // ignore undefined's
-         if (value !== undefined) {
-            if (isTextField) this.nsrecord.setText({ fieldId: nsfield, text: value })
-            else this.nsrecord.setValue({ fieldId: nsfield, value: Number(value) })
-         } else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
-      },
-      enumerable: true //default is false
-   }
-}
+export const parseSublistProp = suffixParser('Sublist')
 
 // this is the shape of SublistLine class constructor
 export type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T
-
-/**
- * Decorator for adding sublists with each line of the sublist represented by a type T which
- * defines the properties you want on the sublist
- * @param ctor Constructor for the type that has the properties you want from each sublist line.
- * e.g. Invoice.ItemSublistLine
- */
-function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
-   return function (target: any, propertyKey: string): any {
-      const [, nssublist] = parseSublistProp(propertyKey)
-      const privateProp = `_${nssublist}`
-      return {
-         enumerable: true,
-         // sublist is read only for now - if we have a use case where this should be assigned then tackle it
-         get: function () {
-
-            if (!this[privateProp]) {
-               log.debug('initializing sublist', `sublist property named ${propertyKey}, sublist id ${nssublist}`)
-               // using defineProperty() here defaults to making the property non-enumerable which is what we want
-               // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
-               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, nssublist) })
-            }
-            return this[privateProp]
-         },
-      }
-   }
-}
-
-/**
- * Decorator for *subrecord* fields with the subrecord shape represented by T (which
- * defines the properties you want on the subrecord)
- * @param ctor Constructor for the type that has the properties you want from the subrecord.
- * e.g. AssemblyBuild.InventoryDetail
- */
-function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec: record.Record) => T) {
-   return function (target: any, propertyKey: string): any {
-      return {
-         enumerable: true,
-         // sublist is read only for now - if we have a use case where this should be assigned then tackle it
-         get: function () {
-            return new ctor(this.nsrecord.getSubrecord({
-               fieldId: propertyKey
-            }))
-         },
-      }
-   }
-}
-
-/**
- * Generic property descriptor with algorithm for values that need to go through the NS format module on field
- * write. Returns plain getValue() on reads
- * note: does not take into account timezone
- * This decorator applies to record properties only (i.e. not for use on sublists).
- * @param {string} formatType the NS field type (e.g. 'date')
- * @param target
- * @param propertyKey
- * @returns  an object property descriptor to be used
- * with decorators
- */
-function formattedDescriptor<T extends NetsuiteCurrentRecord> (formatType: format.Type, target: T, propertyKey: string): any {
-   return {
-      get: function () {
-         return this.nsrecord.getValue({ fieldId: propertyKey })
-      },
-      set: function (value) {
-         // allow null to flow through, but ignore undefined's
-         if (value !== undefined) {
-            let formattedValue = format.format({ type: formatType, value: value })
-            log.debug(`setting field [${propertyKey}:${formatType}]`,
-               `to formatted value [${formattedValue}] javascript type:${typeof formattedValue}`)
-            if (value === null) this.nsrecord.setValue({ fieldId: propertyKey, value: null })
-            else this.nsrecord.setValue({ fieldId: propertyKey, value: formattedValue })
-         } else log.info(`not setting ${propertyKey} field`, 'value was undefined')
-      },
-      enumerable: true //default is false
-   }
-}
-
-/**
- * Helper function to create an alias property that maps to another field id
- * Example usage @FieldType.alias('custentity_foo') foo: string
- * 
- * @param fieldId 
- * @returns any
- */
-function Alias(fieldId: string) {
-	return (target, propertyKey: string) => {
-		Object.defineProperty(target, propertyKey, {
-			get: function () {
-				return this[fieldId];
-			},
-			set: function (value) {
-				if (value === undefined) {
-					return;
-				}
-
-				this[fieldId] = value;
-			},
-			enumerable: true,
-			configurable: true,
-		});
-	};
-}
-
-/**
- * Helper decorator to define a join relationship to another record type.
- * Example usage:
- * @FieldType.join('entity', Customer) customer: Customer
- * 
- * @param fieldId 
- * @param classReference 
- * @returns NCurrentRecord
- */
-function Join(fieldId: string, classReference) {
-	return (target, propertyKey: string) => {
-		const privateInstanceKey = `__join_${fieldId}`;
-
-		Object.defineProperty(target, propertyKey, {
-			get: function () {
-				if (!this[privateInstanceKey]) {
-					try {
-						Object.defineProperty(this, privateInstanceKey, {
-							value: new classReference(this.nsrecord.getValue({ fieldId: fieldId })),
-							writable: true,
-							enumerable: false,
-							configurable: true,
-						});
-					} catch (_e) {
-						this[privateInstanceKey] = new classReference(this.nsrecord.getValue({ fieldId: fieldId }));
-					}
-				}
-
-				return this[privateInstanceKey] ? this[privateInstanceKey] : null;
-			},
-			set: function (value) {
-				if (value === undefined) {
-					log.debug(`ignoring field [${fieldId}]`, 'field value is undefined');
-					return;
-				}
-
-				if (value instanceof classReference) {
-					this[fieldId] = value.id;
-				} else {
-					this[fieldId] = value;
-				}
-
-				delete this[privateInstanceKey];
-			},
-			enumerable: true,
-			configurable: true,
-		});
-	};
-}
 
 /**
  *  Netsuite field types - decorate your model properties with these to tie netsuite field types to your
@@ -421,67 +217,4 @@ function Join(fieldId: string, classReference) {
  *  To get 'Text' rather than field value, suffix your property name with 'Text' e.g. 'afieldText' for the
  *  field 'afield'.
  */
-export namespace FieldType {
-   /**
-    * use for ns  _address_ field type
-    */
-   export const address = defaultDescriptor
-   /**
-    * use for NS _checkbox_ field type - surfaces as `boolean` in TypeScript
-    */
-   export const checkbox = defaultDescriptor
-   export const date = defaultDescriptor
-   export const currency = numericDescriptor
-   export const datetime = defaultDescriptor
-   export const document = defaultDescriptor
-   export const email = defaultDescriptor
-   export const freeformtext = defaultDescriptor
-
-   export const float = numericDescriptor
-   export const decimalnumber = float
-   export const hyperlink = defaultDescriptor
-   export const inlinehtml = defaultDescriptor
-   export const image = defaultDescriptor
-   export const integernumber = numericDescriptor
-   export const longtext = defaultDescriptor
-   export const multiselect = defaultDescriptor
-   export const percent = defaultDescriptor
-   export const radio = defaultDescriptor
-
-   /**
-    * NetSuite 'Select' field type.
-    */
-   export var select = defaultDescriptor
-   export var textarea = defaultDescriptor
-
-   export const alias = Alias;
-   export const join = Join;
-
-   /**
-    * this isn't a native NS 'field' type, but rather is used to indicate a property should represent a NS sub-list.
-    * Pass a type derived from SublistLine that describes the sublist fields you want. e.g. Invoice.ItemSublistLine
-    * @example
-    * class MySublistLine extends Invoice.ItemSublistLine { custcol_foo:string }
-    * class Invoice {
-    * @FieldType.sublist(MySublistLine)
-    * item: SublistLine<MySublistLine>
-    * }
-    */
-   export var sublist = sublistDescriptor
-   /**
-    * NetSuite _SubRecord_ field type (reference to a subrecord object, usually described as 'summary' in the
-    * records browser.
-    * Pass in the (TypeScript) type that matches the subrecord this property points to
-    * @example the `assemblybuild.inventorydetail` property
-    * ```typescript
-    * import { InventoryDetail } from './DataAceess/InventoryDetail'
-    *
-    * class AssemblyBuild {
-    *    @FieldType.subrecord(InventoryDetail)
-    *    inventorydetail: InventoryDetail
-    * }
-    * ```
-    */
-   export var subrecord = subrecordDescriptor
-}
-
+export import FieldType = importFieldType;

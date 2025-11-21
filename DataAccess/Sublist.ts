@@ -9,7 +9,7 @@ import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import * as error from 'N/error'
-import { defaultDescriptor, NetsuiteCurrentRecord } from './Record'
+import { NetsuiteCurrentRecord } from './Record'
 /// <reference lib="es2015.symbol" />
 
 const log = LogManager.getLogger('nsdal-sublist')

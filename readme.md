@@ -2,6 +2,10 @@ NS-Tools/DAL is a fork of exploreconsulting/netsuite-fasttrack-toolkit-ss2.
 
 Original project license is MIT based on the project.json license grant, and issue#4 under the original repository (https://web.archive.org/web/20201019155508/https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/issues/4)
 
+Breaking changes:
+- No current plans on packaging NS Tools, I envision this will become a package we use git submodules on a parent project for. This will allow us to build the framework/bundle it with your existing codebase.
+- All base records have been moved under DataAccess/BaseRecords
+- All field decorators have been moved under DataAccess/FieldDescriptors. For now we export this from Record.ts, this may be deprecated in the future.
 
 -------------- Original Readme ----------
 

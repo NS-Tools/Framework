@@ -1,10 +1,10 @@
 //region load customer example
 
 import * as record from 'N/record'
-import * as cust from './DataAccess/CustomerBase'
+import * as cust from './DataAccess/BaseRecords/CustomerBase'
 import { FieldType } from './DataAccess/Record'
 import { Sublist } from './DataAccess/Sublist'
-import * as so from './DataAccess/SalesOrderBase'
+import * as so from './DataAccess/BaseRecords/SalesOrderBase'
 //region logging
 import * as nslog from 'N/log'
 import * as LogManager from './EC_Logger'
