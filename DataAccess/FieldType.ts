@@ -19,8 +19,8 @@ export namespace FieldType {
 	 */
 	export const checkbox = DefaultFieldDescriptor;
 	export const currency = NumericDescriptor;
-	export const date = DateDescriptor;
-	export const datetime = DateTimeDescriptor;
+	export const date = DefaultFieldDescriptor;
+	export const datetime = DefaultFieldDescriptor;
 	export const document = DefaultFieldDescriptor;
 	export const email = DefaultFieldDescriptor;
 	export const freeformtext = DefaultFieldDescriptor;
