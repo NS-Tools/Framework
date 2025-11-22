@@ -1,5 +1,5 @@
-import * as LogManager from '../../EC_Logger';
-import type { NetsuiteCurrentRecord } from '../Record';
+import * as LogManager from '../../../EC_Logger';
+import type { NetsuiteCurrentRecord } from '../../Record';
 
 const log = LogManager.getLogger('DataAccess.Record');
 

@@ -1,4 +1,4 @@
-import type { NetsuiteCurrentRecord } from '../Record';
+import type { NetsuiteCurrentRecord } from '../../Record';
 
 /**
  * Helper function to create an alias property that maps to another field id

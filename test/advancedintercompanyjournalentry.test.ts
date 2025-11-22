@@ -1,4 +1,7 @@
-import { AdvancedIntercompanyJournalEntryBase, LineSublist } from '../DataAccess/BaseRecords/AdvancedIntercompanyJournalEntryBase';
+import {
+	AdvancedIntercompanyJournalEntryBase,
+	LineSublist,
+} from '../DataAccess/BaseRecords/AdvancedIntercompanyJournalEntryBase';
 import { Sublist } from '../DataAccess/Sublist';
 
 describe('advanced intercompany journal entry', () => {

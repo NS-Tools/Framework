@@ -1,5 +1,5 @@
 import * as format from 'N/format';
-import type { NetsuiteCurrentRecord } from '../Record';
+import type { NetsuiteCurrentRecord } from '../../Record';
 import { FormattedDescriptor } from './FormattedDescriptor';
 
 /**

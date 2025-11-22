@@ -85,13 +85,9 @@ function log(loglevel: number, logger: Logger, ...rest: any[]) {
  * which log the browser console by default.
  *
  * Severities are mapped as follows:
- *
  * debug -> NS 'DEBUG'
- *
  * info -> NS 'AUDIT'
- *
  * warn -> NS 'ERROR'
- *
  * error -> NS 'EMERGENCY'
  */
 export class ExecutionLogAppender implements Appender {
@@ -167,11 +163,11 @@ function getGovernanceMessage(governanceEnabled: boolean) {
  */
 function findKey(object, predicate) {
 	let result;
+
 	if (object == null) {
-		// @ts-expect-error
-		// noinspection JSUnusedAssignment
 		return result;
 	}
+
 	Object.keys(object).some((key) => {
 		const value = object[key];
 		if (predicate(value, key, object)) {
@@ -179,8 +175,7 @@ function findKey(object, predicate) {
 			return true;
 		} else return false;
 	});
-	// @ts-expect-error
-	// noinspection JSUnusedAssignment
+
 	return result;
 }
 

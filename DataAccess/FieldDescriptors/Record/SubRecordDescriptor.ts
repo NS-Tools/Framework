@@ -1,5 +1,5 @@
 import type * as record from 'N/record';
-import type { NetsuiteCurrentRecord } from '../Record';
+import type { NetsuiteCurrentRecord } from '../../Record';
 
 /**
  * Decorator for *subrecord* fields with the subrecord shape represented by T (which

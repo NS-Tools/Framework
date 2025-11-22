@@ -73,13 +73,13 @@ var count = salesorder.getLineCount({
 // build a collection of item id and quantity objects for all items on the salesorder
 var itemInfo: any[] = [];
 
-for (var x = 0; x < count; x++) {
-	var item = salesorder.getSublistValue({
+for (let x = 0; x < count; x++) {
+	const item = salesorder.getSublistValue({
 		sublistId: 'item',
 		fieldId: 'item',
 		line: x,
 	});
-	var quantity = salesorder.getSublistValue({
+	const quantity = salesorder.getSublistValue({
 		sublistId: 'item',
 		fieldId: 'quantity',
 		line: x,
@@ -97,8 +97,16 @@ namespace C {
 		item: Sublist<so.ItemSublist>;
 	}
 
-	var salesorder = new SalesOrder(1234);
+	const salesorder = new SalesOrder(1234);
 	salesorder.item; // already a collection of line items with fields defined by so.ItemSublist
+
+	const itemInfo: any[] = [];
+	for (const line of salesorder.item) {
+		itemInfo.push({
+			item: line.item,
+			quantity: line.quantity,
+		});
+	}
 }
 
 //endregion

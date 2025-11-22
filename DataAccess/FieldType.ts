@@ -1,13 +1,10 @@
-import { AliasDescriptor } from './FieldDescriptors/AliasDescriptor';
-import { DateDescriptor } from './FieldDescriptors/DateDescriptor';
-import { DateTimeDescriptor } from './FieldDescriptors/DateTimeDescriptor';
-import { DefaultFieldDescriptor } from './FieldDescriptors/DefaultFieldDescriptor';
-import { FormattedDescriptor } from './FieldDescriptors/FormattedDescriptor';
-import { GetTextDescriptor } from './FieldDescriptors/GetTextDescriptor';
-import { JoinDescriptor } from './FieldDescriptors/JoinDescriptor';
-import { NumericDescriptor } from './FieldDescriptors/NumericDescriptor';
-import { SublistDescriptor } from './FieldDescriptors/SublistDescriptor';
-import { SubRecordDescriptor } from './FieldDescriptors/SubRecordDescriptor';
+import { AliasDescriptor } from './FieldDescriptors/Record/AliasDescriptor';
+import { DefaultFieldDescriptor } from './FieldDescriptors/Record/DefaultFieldDescriptor';
+import { GetTextDescriptor } from './FieldDescriptors/Record/GetTextDescriptor';
+import { JoinDescriptor } from './FieldDescriptors/Record/JoinDescriptor';
+import { NumericDescriptor } from './FieldDescriptors/Record/NumericDescriptor';
+import { SublistDescriptor } from './FieldDescriptors/Record/SublistDescriptor';
+import { SubRecordDescriptor } from './FieldDescriptors/Record/SubRecordDescriptor';
 
 export namespace FieldType {
 	/**

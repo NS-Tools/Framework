@@ -6,209 +6,14 @@
  */
 
 import * as error from 'N/error';
-import * as format from 'N/format';
 import type * as record from 'N/record';
 import * as LogManager from '../EC_Logger';
-import type { NetsuiteCurrentRecord } from './Record';
-
-/// <reference lib="es2015.symbol" />
+import { SublistFieldType as importSublistFieldType } from './SublistFieldType';
 
 const log = LogManager.getLogger('nsdal-sublist');
 
 // from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
 export type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
-/*
- note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
- this differs from body fields behavior - it seems body fields required the numericDescriptor (see numericDescriptor
- in Record.ts
- */
-
-/**
- * decorators for sublist fields. Adorn your class properties with these to bind your class property name with
- * the specific behavior for the type of field it represents in NetSuite.
- */
-export namespace SublistFieldType {
-	export var checkbox = defaultSublistDescriptor;
-	export var currency = defaultSublistDescriptor;
-	export var date = defaultSublistDescriptor;
-	export var datetime = defaultSublistDescriptor;
-	export var email = defaultSublistDescriptor;
-	export var freeformtext = defaultSublistDescriptor;
-	export var decimalnumber = defaultSublistDescriptor;
-	export var float = defaultSublistDescriptor;
-	export var hyperlink = defaultSublistDescriptor;
-	export var image = defaultSublistDescriptor;
-	export var inlinehtml = defaultSublistDescriptor;
-	export var integernumber = defaultSublistDescriptor;
-	export var longtext = defaultSublistDescriptor;
-	export var multiselect = defaultSublistDescriptor;
-
-	export var namevaluelist = defaultSublistDescriptor;
-	export var percent = defaultSublistDescriptor;
-
-	export const rate = defaultSublistDescriptor;
-	export var select = defaultSublistDescriptor;
-	export var textarea = defaultSublistDescriptor;
-	export const subrecord = subrecordDescriptor;
-}
-
-/**
- * handles setting sublist fields for any combination of setValue/setText and standard/dynamic record
- * @param fieldId
- * @param value
- * @param isText
- */
-function setSublistValue(this: SublistLine, fieldId: string, value: any, isText: boolean) {
-	// ignore undefined's
-	if (value !== undefined) {
-		const options = {
-			sublistId: this.sublistId,
-			fieldId: fieldId,
-		};
-
-		if (this.useDynamicModeAPI && this.nsrecord.isDynamic) {
-			this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
-			isText
-				? this.nsrecord.setCurrentSublistText({
-						...options,
-						ignoreFieldChange: this.ignoreFieldChange,
-						forceSyncSourcing: this.forceSyncSourcing,
-						text: value,
-					})
-				: this.nsrecord.setCurrentSublistValue({
-						...options,
-						ignoreFieldChange: this.ignoreFieldChange,
-						forceSyncSourcing: this.forceSyncSourcing,
-						value: value,
-					});
-		} else {
-			isText
-				? this.nsrecord.setSublistText({ ...options, line: this._line, text: value })
-				: this.nsrecord.setSublistValue({ ...options, line: this._line, value: value });
-		}
-	} else log.debug(`ignoring field [${fieldId}]`, 'field value is undefined');
-}
-
-function getSublistValue(this: SublistLine, fieldId: string, isText: boolean) {
-	const options = {
-		sublistId: this.sublistId,
-		fieldId: fieldId,
-	};
-	log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options);
-	if (this.useDynamicModeAPI && this.nsrecord.isDynamic) {
-		this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
-		return isText ? this.nsrecord.getCurrentSublistText(options) : this.nsrecord.getCurrentSublistValue(options);
-	} else {
-		return isText
-			? this.nsrecord.getSublistText({ ...options, line: this._line })
-			: this.nsrecord.getSublistValue({ ...options, line: this._line });
-	}
-}
-
-/**
- * Generic property descriptor with basic default algorithm that exposes the field value directly with no
- * other processing. If the target field name ends with 'Text' it uses NetSuite `getText()/setText()` otherwise (default)
- * uses `getValue()/setValue()`
- * Apply this decorator (or its aliases) to properties on SublistLine subtypes
- * @returns an object property descriptor to be used
- * with Object.defineProperty
- */
-function defaultSublistDescriptor<T extends SublistLine>(target: T, propertyKey: string): any {
-	log.debug('creating default descriptor', `field: ${propertyKey}`);
-	const [isTextField, nsfield] = parseProp(propertyKey);
-	return {
-		get: function (this: SublistLine) {
-			return getSublistValue.call(this, nsfield, isTextField);
-		},
-		set: function (this: SublistLine, value) {
-			setSublistValue.call(this, nsfield, value, isTextField);
-		},
-		enumerable: true, //default is false
-	};
-}
-
-/**
- * Generic property descriptor with algorithm for values that need to go through the NS format module
- * note: does not take into account timezone
- * @param {string} formatType the NS field type (e.g. 'date')
- * @param target
- * @param propertyKey
- * @returns  an object property descriptor to be used
- * with decorators
- */
-export function formattedSublistDescriptor(formatType: format.Type, target: any, propertyKey: string): any {
-	return {
-		get: function (this: SublistLine) {
-			log.debug(`getting formatted field [${propertyKey}]`);
-			const value = getSublistValue.call(this, propertyKey, false) as string; // to satisfy typing for format.parse(value) below.
-			log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`);
-			// ensure we don't return moments for null, undefined, etc.
-			// returns the 'raw' type which is a string or number for our purposes
-			return value ? format.parse({ type: formatType, value: value }) : value;
-		},
-		set: function (this: SublistLine, value) {
-			let formattedValue: number | null;
-			// allow null to flow through, but ignore undefined's
-			if (value !== undefined) {
-				switch (formatType) {
-					// ensure numeric typed fields get formatted to what netsuite needs
-					// in testing with 2016.1 fields like currency had to be a number formatted specifically (e.g. 1.00
-					// rather than 1 or 1.0 for them to be accepted without error
-					case format.Type.CURRENCY:
-					case format.Type.CURRENCY2:
-					case format.Type.FLOAT:
-					case format.Type.INTEGER:
-					case format.Type.NONNEGCURRENCY:
-					case format.Type.NONNEGFLOAT:
-					case format.Type.POSCURRENCY:
-					case format.Type.POSFLOAT:
-					case format.Type.POSINTEGER:
-					case format.Type.RATE:
-					case format.Type.RATEHIGHPRECISION:
-						formattedValue = Number(format.format({ type: formatType, value: value }));
-						break;
-					default:
-						formattedValue = format.format({ type: formatType, value: value });
-				}
-				log.debug(
-					`setting sublist field [${propertyKey}:${formatType}]`,
-					`to formatted value [${formattedValue}] (unformatted vale: ${value})`,
-				);
-				if (value === null) setSublistValue.call(this, propertyKey, null);
-				else setSublistValue.call(this, propertyKey, formattedValue);
-			} else log.info(`not setting sublist ${propertyKey} field`, 'value was undefined');
-		},
-		enumerable: true, //default is false
-	};
-}
-
-/**
- * Decorator for sublist *subrecord* fields with the subrecord shape represented by T (which
- * defines the properties you want on the subrecord)
- * @param ctor Constructor for the subrecord class you want (e.g. `AddressBase`, `InventoryDetail`).
- */
-export function subrecordDescriptor<T extends NetsuiteCurrentRecord>(
-	ctor: new (rec: Omit<record.Record, 'save'>) => T,
-) {
-	return (target: any, propertyKey: string): any => ({
-		enumerable: true,
-		// sublist is read-only for now - if we have a use case where this should be assigned then tackle it
-		get: function (this: SublistLine) {
-			return new ctor(this.getSubRecord(propertyKey));
-		},
-	});
-}
-
-/**
- * parses a property name from a declaration (supporting 'Text' suffix per our convention)
- * @param propertyKey original property name as declared on class
- * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
- * Text suffix removed)
- */
-function parseProp(propertyKey: string): [boolean, string] {
-	const endsWithText = propertyKey.slice(-4) === 'Text';
-	return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey];
-}
 
 /**
  * creates a sublist whose lines are of type T
@@ -363,9 +168,12 @@ export class Sublist<out T extends SublistLine> implements Iterator<T> {
 	 */
 	protected rebuildArray() {
 		log.info('deleting existing numeric properties');
-		Object.getOwnPropertyNames(this)
-			.filter((key) => !isNaN(+key))
-			.forEach((key) => delete this[key], this);
+		for (const key of Object.getOwnPropertyNames(this)) {
+			if (!Number.isNaN(Number(key))) {
+				delete this[key];
+			}
+		}
+
 		log.debug('sublist after deleting properties', this);
 		log.info('building sublist', `type:${this.sublistId}, linecount:${this.length}`);
 		// create a sublist line indexed property of type T for each member of the underlying sublist
@@ -406,7 +214,7 @@ export class Sublist<out T extends SublistLine> implements Iterator<T> {
 	// serialize only the numeric properties of this object into a real array
 	toJSON() {
 		return Object.keys(this)
-			.filter((k) => !isNaN(+k))
+			.filter((k) => !Number.isNaN(+k))
 			.map((key) => this[key]);
 	}
 
@@ -528,7 +336,7 @@ export abstract class SublistLine {
 				log.debug(`toJSON skipping field ${key}`, `workaround to avoid NS erroring on the getText() on a new record`);
 			}
 			// these fields aren't part of the NS data, they only effect behavior, so don't serialize them
-			else if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI' && key != 'forceSyncSourcing') {
+			else if (key !== 'ignoreFieldChange' && key !== 'useDynamicModeAPI' && key !== 'forceSyncSourcing') {
 				result[key] = this[key];
 			}
 		}
@@ -547,3 +355,5 @@ export abstract class SublistLine {
 		});
 	}
 }
+
+export import SublistFieldType = importSublistFieldType;

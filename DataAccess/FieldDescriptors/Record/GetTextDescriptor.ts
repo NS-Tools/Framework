@@ -1,4 +1,5 @@
-import { type NetsuiteCurrentRecord, parseProp } from '../Record';
+import { parseProp } from '../../Helpers';
+import type { NetsuiteCurrentRecord } from '../../Record';
 import { DefaultFieldDescriptor } from './DefaultFieldDescriptor';
 
 export function GetTextDescriptor<T extends NetsuiteCurrentRecord>(joinedFieldId: string, classReference) {
