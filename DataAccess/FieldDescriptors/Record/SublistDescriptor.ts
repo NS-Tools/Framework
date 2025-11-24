@@ -1,9 +1,12 @@
+import type * as record from 'N/record';
 import * as LogManager from '../../../EC_Logger';
 import { parseSublistProp } from '../../Helpers';
-import type { LineConstructor } from '../../Record';
 import { Sublist, type SublistLine } from '../../Sublist';
 
 const log = LogManager.getLogger('DataAccess.Record');
+
+// this is the shape of SublistLine class constructor
+export type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T;
 
 /**
  * Decorator for adding sublists with each line of the sublist represented by a type T which

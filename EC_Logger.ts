@@ -16,9 +16,11 @@
  * @module
  */
 
+// reference path="./thirdparty/aurelia-logging.d.ts" />
+
 import * as nslog from 'N/log';
 import * as runtime from 'N/runtime';
-import { type Appender, addAppender, clearAppenders, getLogger, type Logger, logLevel } from './aurelia-logging';
+import { type Appender, addAppender, clearAppenders, getLogger, type Logger, logLevel } from './thirdparty/aurelia-logging';
 
 export {
 	type Appender,
@@ -33,7 +35,7 @@ export {
 	removeAppender,
 	removeCustomLevel,
 	setLevel,
-} from './aurelia-logging';
+} from './thirdparty/aurelia-logging';
 
 /**
  * Value to be prepended to each log message title. Defaults to a random 4 digit integer
@@ -449,6 +451,6 @@ declare var window;
 if (typeof module === 'object') addConsoleAppender(require('aurelia-logging-console'));
 // Else detect NS client script and use NS's async require() to avoid blocking
 else if (typeof console === 'object' && typeof window === 'object' && window.alert)
-	require(['./aurelia-logging-console'], addConsoleAppender);
+	require(['./thirdparty/aurelia-logging-console'], addConsoleAppender);
 // otherwise go ahead and log to the execution log (assume server-side suitescript)
 else addAppender(new ExecutionLogAppender());

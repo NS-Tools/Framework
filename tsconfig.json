@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "amd",
     "target": "ES2018",
-    "outDir": "dist",
+    "outDir": "dist/js",
+    "declarationDir": "dist/declarations",
     "noImplicitAny": false,
     "strictNullChecks": true,
     "moduleResolution": "node",

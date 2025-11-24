@@ -6,7 +6,6 @@
 import * as record from 'N/record';
 import * as LogManager from '../EC_Logger';
 import { FieldType as importFieldType } from './FieldType';
-import type { SublistLine } from './Sublist';
 
 const log = LogManager.getLogger('DataAccess.Record');
 
@@ -182,9 +181,6 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 		return id;
 	}
 }
-
-// this is the shape of SublistLine class constructor
-export type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T;
 
 /**
  *  Netsuite field types - decorate your model properties with these to tie netsuite field types to your

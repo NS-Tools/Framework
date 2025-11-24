@@ -8,6 +8,7 @@
     "test": "tests"
   },
   "scripts": {
+    "build": "npx tsc -p tsconfig.json",
     "test": "jest --config test/jest.config.json",
     "prepublishOnly": "tsc; gulp; gulp declarations",
     "postinstall": ""
@@ -45,12 +46,9 @@
   },
   "dependencies": {
     "aurelia-logging": "1.5.2",
-    "aurelia-logging-console": "^1.1.1",
-    "fs-extra": "^11.3.2"
+    "aurelia-logging-console": "^1.1.1"
   },
   "files": [
-    "declarations",
-    "dist",
-    "postInstall.js"
+    "dist"
   ]
 }

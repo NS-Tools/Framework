@@ -44,7 +44,7 @@ export namespace FieldType {
 	 */
 	export const getText = GetTextDescriptor;
 	export const alias = AliasDescriptor;
-	export const join = JoinDescriptor;
+	//export const join = JoinDescriptor;
 
 	/**
 	 * this isn't a native NS 'field' type, but rather is used to indicate a property should represent a NS sub-list.

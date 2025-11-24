@@ -12,9 +12,6 @@ import { SublistFieldType as importSublistFieldType } from './SublistFieldType';
 
 const log = LogManager.getLogger('nsdal-sublist');
 
-// from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
-export type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
-
 /**
  * creates a sublist whose lines are of type T
  */

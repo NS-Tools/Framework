@@ -1,11 +1,42 @@
-NS-Tools/DAL is a fork of exploreconsulting/netsuite-fasttrack-toolkit-ss2.
+NS Tools Framework
+==================
 
-Original project license is MIT based on the project.json license grant, and issue#4 under the original repository (https://web.archive.org/web/20201019155508/https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/issues/4)
+NS-Tools/Framework is a fork of exploreconsulting/netsuite-fasttrack-toolkit-ss2.
 
-Breaking changes:
+The original developers have privated the repository/npm package. Original project license is MIT based on the project.json license grant, and issue#4 under the original repository (https://web.archive.org/web/20201019155508/https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/issues/4)
+
+## Breaking changes:
 - No current plans on packaging NS Tools, I envision this will become a package we use git submodules on a parent project for. This will allow us to build the framework/bundle it with your existing codebase.
 - All base records have been moved under DataAccess/BaseRecords
 - All field decorators have been moved under DataAccess/FieldDescriptors. For now we export this from Record.ts, this may be deprecated in the future.
+
+## Installation
+
+NS-Tools/Framework plans to offer two ways to use this project. The first method is cloning it as a submodule into your current project. The second way is using the starter template to quickly get your project off the ground!
+
+### Existing Projects
+
+#### Submodule
+
+To install, navigate to your source directory, and run the command `git submodule add --depth 1 git@github.com:ns-tools/framework.git`.
+
+To update run the command `git submodule update --remote` to pull in the latest changes to Framework.
+
+#### Build
+
+1. Build the project by running `npm build`
+2. Upload the dist/js folder to your file cabinet
+3. Copy the dist/declarations files to your project mirroring the same access path in your file cabinet.
+
+### New Projects (using starter template)
+
+Coming soon.
+
+
+## ThirdParty Libraries
+
+Coming soon.
+
 
 -------------- Original Readme ----------
 
@@ -88,7 +119,7 @@ Works with SuiteScript 2.0 and 2.1.
  */
 
 import * as LogManager from 'NFT/EC_Logger'
-import {CustomerBase} from  'NFT/DataAccess/CustomerBase'
+import {CustomerBase} from  'NFT/BaseRecords/DataAccess/CustomerBase'
 import {FieldType} from 'NFT/DataAccess/Record'
 import {SublistFieldType,Sublist,SublistLine} from 'NFT/DataAccess/Sublist'
 import * as _ from 'NFT/lodash'
