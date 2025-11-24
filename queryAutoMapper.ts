@@ -1,4 +1,6 @@
-import { Parser } from './transactsql.umd';
+import { Parser } from './thirdparty/transactsql/transactsql.umd';
+
+// reference path="./thirdparty/transactsql/transactsql.umd.d.ts" />
 
 /**
  * A type guard to ensure that the query string does not contain an asterisk (*).

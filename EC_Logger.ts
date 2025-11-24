@@ -16,11 +16,11 @@
  * @module
  */
 
-// reference path="./thirdparty/aurelia-logging.d.ts" />
+// reference path="./thirdparty/aurelia-logging/aurelia-logging.d.ts" />
 
 import * as nslog from 'N/log';
 import * as runtime from 'N/runtime';
-import { type Appender, addAppender, clearAppenders, getLogger, type Logger, logLevel } from './thirdparty/aurelia-logging';
+import { type Appender, addAppender, clearAppenders, getLogger, type Logger, logLevel } from './thirdparty/aurelia-logging/aurelia-logging';
 
 export {
 	type Appender,
@@ -35,7 +35,7 @@ export {
 	removeAppender,
 	removeCustomLevel,
 	setLevel,
-} from './thirdparty/aurelia-logging';
+} from './thirdparty/aurelia-logging/aurelia-logging';
 
 /**
  * Value to be prepended to each log message title. Defaults to a random 4 digit integer
@@ -448,9 +448,9 @@ declare function require(deps: string | string[], cb?: (...args: any[]) => void)
 declare var window;
 
 // if we're running in nodejs (i.e. unit tests) load the console appender using node require()
-if (typeof module === 'object') addConsoleAppender(require('aurelia-logging-console'));
+if (typeof module === 'object') addConsoleAppender(require('./thirdparty/aurelia-logging/aurelia-logging-console'));
 // Else detect NS client script and use NS's async require() to avoid blocking
 else if (typeof console === 'object' && typeof window === 'object' && window.alert)
-	require(['./thirdparty/aurelia-logging-console'], addConsoleAppender);
+	require(['./thirdparty/aurelia-logging/aurelia-logging-console'], addConsoleAppender);
 // otherwise go ahead and log to the execution log (assume server-side suitescript)
 else addAppender(new ExecutionLogAppender());
