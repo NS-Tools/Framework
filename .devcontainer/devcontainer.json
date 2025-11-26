@@ -14,8 +14,7 @@
 		"source=profile,target=/home/node,type=volume"
 	],
 	"runArgs": [
-		"--tmpfs=${containerWorkspaceFolder}/node_modules:exec",
-		"--tmpfs=${containerWorkspaceFolder}/tests/bin:exec"
+		"--tmpfs=${containerWorkspaceFolder}/node_modules:exec"
 	],
 	"remoteEnv": {
 		"WORKSPACE_PATH": "${containerWorkspaceFolder}"
