@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 import type * as nsRecord from 'N/record';
 import * as record from '../__mocks__/N/record';
 import { FieldType, NetsuiteRecord } from '../DataAccess/Record';

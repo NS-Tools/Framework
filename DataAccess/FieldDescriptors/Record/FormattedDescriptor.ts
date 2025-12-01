@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 import * as format from 'N/format';
 import * as LogManager from '../../../EC_Logger';
 import type { NetsuiteCurrentRecord } from '../../Record';

@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 import { AliasDescriptor } from './FieldDescriptors/Record/AliasDescriptor';
 import { DefaultFieldDescriptor } from './FieldDescriptors/Record/DefaultFieldDescriptor';
 import { GetTextDescriptor } from './FieldDescriptors/Record/GetTextDescriptor';

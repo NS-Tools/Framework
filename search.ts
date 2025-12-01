@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 /**
  * This module provides a lazy, functional processing approach to working with NetSuite saved searches.
  * It automatically handles paging behind the scenes allowing the developer to focus on 'per result' business logic.
