@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 import * as record from 'N/record';
 import { FieldType } from '../Record';
 import { type Sublist, SublistFieldType, SublistLine } from '../Sublist';

@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 /**
  * Company           RSM US LLP
  * Description       A script for smoke-testing NFT. These tests are not meant to be exhaustive, but rather to ensure that the basic functionality of NFT is working.

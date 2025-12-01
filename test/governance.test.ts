@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 // mock must be declared at top of file because ts-jest uses babel to auto-hoist and it was erroring all tests
 // import * as mockrecord from "../__mocks__/N/record"
 

@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 import { CustomerBase } from '../NFT-SS2-8.0.1/DataAccess/CustomerBase';
 import { FieldType } from '../NFT-SS2-8.0.1/DataAccess/Record';
 

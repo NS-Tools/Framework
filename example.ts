@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 /**
  * Test file for SuiteScript 2.0
  * @NApiVersion 2.x

@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 /**
  * parses a property name from a declaration (supporting 'Text' suffix per our convention)
  * @param propertyKey original property name as declared on class

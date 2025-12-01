@@ -1,3 +1,10 @@
+/*
+* Copyright 2016-2025 Explore Consulting
+* Copyright 2025-Present NS Tools Team
+*
+* See LICENSE file for additional information.
+*/
+
 /**
  * Represents Sublists and their field access. Sublists use a different api than body fields in NS.
  * Note that in NFT-SS1.0 we collapsed the sublist and body descriptors into a common codebase. Decided not to do
