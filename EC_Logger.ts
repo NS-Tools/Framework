@@ -455,7 +455,8 @@ declare function require(deps: string | string[], cb?: (...args: any[]) => void)
 declare var window;
 
 // if we're running in nodejs (i.e. unit tests) load the console appender using node require()
-if (typeof module === 'object') addConsoleAppender(require('./thirdparty/aurelia-logging/aurelia-logging-console'));
+// @FIXME: Look into the jest pathing issue to have it read from thge thirdparty folder instead of using the node module.
+if (typeof module === 'object') addConsoleAppender(require('aurelia-logging-console'));
 // Else detect NS client script and use NS's async require() to avoid blocking
 else if (typeof console === 'object' && typeof window === 'object' && window.alert)
 	require(['./thirdparty/aurelia-logging/aurelia-logging-console'], addConsoleAppender);
