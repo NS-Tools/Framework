@@ -8,7 +8,6 @@
 // mock must be declared at top of file because ts-jest uses babel to auto-hoist and it was erroring all tests
 // import * as mockrecord from "../__mocks__/N/record"
 
-import * as moment from 'moment';
 import * as mockruntime from '../__mocks__/N/runtime';
 import * as mocktask from '../__mocks__/N/task';
 import { governanceRemains, rescheduleIfNeeded } from '../governance';
@@ -32,9 +31,9 @@ describe('governance', () => {
 	test('drop below time threshold returns false', () => {
 		getRemainingUsage.mockReturnValue(1000);
 		// simulate a start time 46 minutes in the past
-		const inThePast = moment().subtract(46, 'minutes').valueOf();
+		const fortySixMinutesAgo = getPastEpoch(46);
 
-		const sut = governanceRemains(inThePast);
+		const sut = governanceRemains(fortySixMinutesAgo);
 
 		expect(sut()).toEqual(false);
 	});
@@ -42,9 +41,9 @@ describe('governance', () => {
 	test('drop below time threshold and units returns false', () => {
 		getRemainingUsage.mockReturnValue(100);
 		// simulate a start time 46 minutes in the past
-		const inThePast = moment().subtract(46, 'minutes').valueOf();
+		const fortySixMinutesAgo = getPastEpoch(46);
 
-		const sut = governanceRemains(inThePast);
+		const sut = governanceRemains(fortySixMinutesAgo);
 
 		expect(sut()).toEqual(false);
 	});
@@ -52,7 +51,7 @@ describe('governance', () => {
 	test('time remains should return true', () => {
 		getRemainingUsage.mockReturnValue(1000);
 		// simulate a start time 30 minutes in the past - still has 15 minutes of time before the default 45 min limit
-		const inThePast = moment().subtract(30, 'minutes').valueOf();
+		const inThePast = getPastEpoch(30);
 
 		const sut = governanceRemains(inThePast);
 
@@ -90,3 +89,8 @@ describe('rescheduling', () => {
 		expect(mocktask.create.mock.calls[0][0]).toEqual(expect.objectContaining({ params: scriptParams }));
 	});
 });
+
+function getPastEpoch(minutes: number): number {
+	const epoch = Date.now();
+	return epoch - minutes * 60 * 1000;
+}
