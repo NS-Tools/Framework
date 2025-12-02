@@ -16,7 +16,6 @@ this line adds lodash it as a silent dependency of this
 module (in the correct path of ./lodash assuming lodash is installed in the same folder as this script)
 */
 
-import * as _ from 'lodash';
 import { CustomerBase } from './DataAccess/BaseRecords/CustomerBase';
 import { ItemSublist, SalesOrderBase } from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType, NetsuiteRecord } from './DataAccess/Record';
@@ -70,21 +69,36 @@ function demoSalesOrderLineItems() {
 	const line = so.item[0];
 	line.rate = 20;
 
-	// get all line items over $50 amount
-	const overFifty = _.filter(so.item, (item) => item.amount > 50.0);
-	if (_.isEmpty(overFifty)) {
-		// do something if no lines over 50.00
+	// get all line items over $50 amount 
+	let hasLinesover50 = false;
+	for (const item of so.item) {
+		if (item.amount > 50.0) {
+			hasLinesover50 = true;
+			// do something with item
+		}
+	}
+
+	if (!hasLinesover50) {
+		// do something if no lines over $50
 	}
 
 	// increase quantity by 1 for all lines
-	_.map(so.item, (i) => (i.quantity += 1));
+	for (const item of so.item) {
+		item.quantity += 1;
+	}
 
 	// find first line item with specific item
-	const found = _.find(so.item, (i) => i.item == 123);
+	let firstLineWithItem123: ItemSublist | undefined;
+	for (const item of so.item) {
+		if (item.item == 123) {
+			firstLineWithItem123 = item;
+			break;
+		}
+	}
 
-	if (found) {
+	if (firstLineWithItem123) {
 		// do something with found line
-		found.quantity += 1;
+		firstLineWithItem123.quantity += 1;
 	}
 
 	// ... can then access fields on the found line...
@@ -127,7 +141,7 @@ export = {
 		log.info('subsidiary value', c.subsidiary);
 		log.info('subsidiary text', c.subsidiaryText);
 
-		c.comments = c.comments + _.random(1, 100).toString();
+		c.comments = c.comments + Math.random().toString();
 		log.warn('warning', 'this is a warning');
 		log.info('customer', c);
 		const id = c.save();
