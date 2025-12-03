@@ -5,8 +5,8 @@
 * See LICENSE file for additional information.
 */
 
-import * as LogManager from '../EC_Logger';
-import { autolog } from '../EC_Logger';
+import * as LogManager from '../Logger';
+import { autolog } from '../Logger';
 
 // spy on all console.debug() calls
 const fakedebug = jest.spyOn(console, 'debug');
