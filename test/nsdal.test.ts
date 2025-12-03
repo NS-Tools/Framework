@@ -132,7 +132,7 @@ describe('body field access', () => {
 
 		test('set an alias field', () => {
 			const c = new CustomerWithAlias();
-			c.companyname = 'acme corp';
+			c.companyalias = 'acme corp';
 			expect(mockrecord.setValue).toHaveBeenCalledWith({ fieldId: 'companyname', value: 'acme corp' });
 		});
 	});
