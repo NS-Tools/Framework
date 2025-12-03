@@ -29,6 +29,14 @@ class Customer extends CustomerBase {
 	// as the internal id value
 	@FieldType.select
 	subsidiaryText: string;
+
+
+	// Field alias example.
+	@FieldType.checkbox
+	custentity1: boolean;
+
+	// You can now use cust.is_preferred_customer to read/write the value of custentity1
+	@FieldType.alias('custentity1') is_preferred_customer: boolean;
 }
 
 // the SalesOrderBase class has the item sublist fields already defined.
