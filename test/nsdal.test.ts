@@ -9,7 +9,6 @@
  * Basic tests on instantiating nsdal objects and manipulating them
  */
 
-import * as _ from 'lodash';
 import * as mockrecord from '../__mocks__/N/record';
 import * as cust from '../DataAccess/BaseRecords/CustomerBase';
 import { SalesOrderBase } from '../DataAccess/BaseRecords/SalesOrderBase';
@@ -35,7 +34,7 @@ describe('instantiation', () => {
 		// should call load once
 		expect(mockrecord.load.mock.calls.length).toBe(1);
 
-		console.log(_.toPlainObject(c));
+		console.log(c);
 	});
 
 	test('with STRING with whitespace', () => {
@@ -48,7 +47,7 @@ describe('instantiation', () => {
 		expect(c).toBeTruthy();
 		// should call load once
 		expect(mockrecord.load.mock.calls.length).toBe(1);
-		console.log(_.toPlainObject(c));
+		console.log(c);
 	});
 
 	test('with record object', () => {

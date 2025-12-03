@@ -11,7 +11,6 @@
 import * as nslog from 'N/log';
 import * as record from 'N/record';
 import type * as search from 'N/search';
-import { Seq } from 'immutable';
 import * as cust from './DataAccess/BaseRecords/CustomerBase';
 import * as so from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType } from './DataAccess/Record';
@@ -143,13 +142,10 @@ export const onRequest = autolog(function onRequest(ctx) {
 	switch (ctx.request.method) {
 		case 'GET':
 			log.debug('GET request');
-
-			Seq<search.Result>(LazySearch.load('730'))
-				.skip(123)
-				.take(1)
-				.map(nsSearchResult2obj<{ foo; bar; baz }>())
-				.forEach((i) => log.debug('result', i));
-
+			for (const result of LazySearch.load('730')) {
+				const obj = nsSearchResult2obj<{ foo; bar; baz }>()(result);
+				log.debug('result', obj);
+			}
 			break;
 		case 'POST':
 			log.debug('POST request parms', ctx.request.parameters);
