@@ -11,6 +11,7 @@
 
 import * as mockrecord from '../__mocks__/N/record';
 import * as cust from '../DataAccess/BaseRecords/CustomerBase';
+import { FieldType } from '../DataAccess/FieldType';
 import { SalesOrderBase } from '../DataAccess/BaseRecords/SalesOrderBase';
 import { TransactionBase } from '../DataAccess/BaseRecords/Transaction';
 
@@ -112,6 +113,29 @@ describe('body field access', () => {
 
 		expect(mockrecord.getValue).toHaveBeenCalledTimes(1);
 		expect(mockrecord.setValue).not.toHaveBeenCalled();
+	});
+
+	describe('alias field access', () => {
+		class CustomerWithAlias extends cust.CustomerBase {
+			@FieldType.freeformtext
+			companyname: string;
+
+			@FieldType.alias('companyname')
+			companyalias: string;
+		}
+
+		test('read an alias field', () => {
+			const c = new CustomerWithAlias();
+			console.log(c.companyalias);
+			expect(mockrecord.getValue).toHaveBeenCalledWith({ fieldId: 'companyname' });
+		});
+
+		test('set an alias field', () => {
+			const c = new CustomerWithAlias();
+			c.companyname = 'acme corp';
+			console.log(c.companyalias);
+			expect(mockrecord.setValue).toHaveBeenCalledWith({ fieldId: 'companyname', value: 'acme corp' });
+		});
 	});
 });
 
