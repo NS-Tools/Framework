@@ -8,6 +8,10 @@
 import type * as search from 'N/search';
 import { nsSearchResult2obj } from '../search';
 
+/**
+ * @TODO: Research search.ts, and evaluate which tests need to be performed. 
+ * See https://github.com/NS-Tools/Framework/pull/8
+ */
 describe('nsSearchResult2obj', () => {
 	/**
 	 *
