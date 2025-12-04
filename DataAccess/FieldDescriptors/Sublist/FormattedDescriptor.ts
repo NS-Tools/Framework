@@ -6,7 +6,7 @@
 */
 
 import * as format from 'N/format';
-import * as LogManager from '../../../EC_Logger';
+import * as LogManager from '../../../Logger';
 import type { SublistLine } from '../../Sublist';
 import { getSublistValue, setSublistValue } from './SublistValues';
 

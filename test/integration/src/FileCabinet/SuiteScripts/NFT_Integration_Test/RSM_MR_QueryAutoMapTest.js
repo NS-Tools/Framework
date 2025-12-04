@@ -13,11 +13,11 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-8.0.1/EC_Logger", "./NFT-SS2-8.0.1/lodash", "./NFT-SS2-8.0.1/queryAutoMapper"], factory);
+        define(["require", "exports", "./NFT-SS2-8.0.1/Logger", "./NFT-SS2-8.0.1/lodash", "./NFT-SS2-8.0.1/queryAutoMapper"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    const LogManager = require("./NFT-SS2-8.0.1/EC_Logger");
+    const LogManager = require("./NFT-SS2-8.0.1/Logger");
     const _ = require("./NFT-SS2-8.0.1/lodash");
     const queryAutoMapper_1 = require("./NFT-SS2-8.0.1/queryAutoMapper");
     // consider using the pkg-auditlog package to audit/log progress to prebuilt custom record

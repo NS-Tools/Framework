@@ -21,7 +21,7 @@ import { AddressBase } from './NFT-SS2-8.0.1/DataAccess/AddressBase';
 import { ItemFulfillmentBase } from './NFT-SS2-8.0.1/DataAccess/ItemFulfillmentBase';
 import { FieldType } from './NFT-SS2-8.0.1/DataAccess/Record';
 import { ServiceItemBase } from './NFT-SS2-8.0.1/DataAccess/ServiceItemBase';
-import * as LogManager from './NFT-SS2-8.0.1/EC_Logger';
+import * as LogManager from './NFT-SS2-8.0.1/Logger';
 import { Seq } from './NFT-SS2-8.0.1/immutable';
 import * as _ from './NFT-SS2-8.0.1/lodash';
 import { LazyQuery, nsQueryResult2obj } from './NFT-SS2-8.0.1/query';

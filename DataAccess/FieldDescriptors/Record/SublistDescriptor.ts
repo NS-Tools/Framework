@@ -6,7 +6,7 @@
 */
 
 import type * as record from 'N/record';
-import * as LogManager from '../../../EC_Logger';
+import * as LogManager from '../../../Logger';
 import { parseSublistProp } from '../../Helpers';
 import { Sublist, type SublistLine } from '../../Sublist';
 

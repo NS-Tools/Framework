@@ -3,7 +3,6 @@ cd $WORKSPACE_PATH;
 rm -rf $WORKSPACE_PATH/dist;
 rm -rf $WORKSPACE_PATH/thirdparty;
 
-# Copy to workspace.. temporary workaround for compatibility reasons with EC_Logger.
 # make Third Party folder
 mkdir -p $WORKSPACE_PATH/thirdparty/{aurelia-logging,transactsql}/
 

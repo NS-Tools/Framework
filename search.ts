@@ -16,7 +16,7 @@
  */
 
 import * as search from 'N/search';
-import * as LogManager from './EC_Logger';
+import * as LogManager from './Logger';
 
 /**
  *  Any object that includes an 'id' property, which NS search results always have
