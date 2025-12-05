@@ -5,7 +5,7 @@
 * See LICENSE file for additional information.
 */
 
-import { getColumns, mapQueryMRResults } from '../queryAutoMapper';
+import { getColumns, mapQueryMRResults } from '../utility/queryAutoMapper';
 
 describe('autoMap', () => {
 	function getFakeSearchResultMRLong() {
