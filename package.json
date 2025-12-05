@@ -10,8 +10,9 @@
   "scripts": {
     "build": "./build.sh",
     "test": "jest --config test/jest.config.json",
-    "prepublishOnly": "tsc; gulp; gulp declarations",
-    "postinstall": ""
+    "postinstall": "",
+    "thirdparty:setup": "git submodule add --force https://github.com/NS-Tools/ThirdParty.git thirdparty/optional",
+    "thirdparty:update": "git submodule update --remote --merge --recursive"
   },
   "author": "NS Tools Team & Originally Explore Consulting",
   "license": "MIT",
