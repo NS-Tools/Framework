@@ -53,10 +53,10 @@ export function governanceRemains(startTime = Date.now(), minutes = 45, units = 
  * ( so it can be invoked by takeWhile() as well)
  *
  */
-export function rescheduleIfNeeded(governancePredicate: () => boolean, params?: object, paramsCallback?: () => object) {
+export function rescheduleIfNeeded(governancePredicate: () => boolean, params?: object, paramsCallback?: (params?: object) => object) {
 	return () => {
 		const governanceRemains = governancePredicate();
-		const effectiveParams = paramsCallback ? paramsCallback() : params;
+		const effectiveParams = paramsCallback ? paramsCallback(params) : params;
 
 		if (!governanceRemains) {
 			const taskId = task.create({
