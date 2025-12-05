@@ -25,6 +25,7 @@
   "include": [
     "./*.ts",
     "DataAccess/**/*.ts",
+    "utility/**/*.ts",
     "examples/**/*.ts",
   ],
   "exclude": [
