@@ -5,7 +5,7 @@
 * See LICENSE file for additional information.
 */
 
-import * as LogManager from '../../../Logger';
+import * as LogManager from '../../../utility/Logger';
 import type { SublistLine } from '../../Sublist';
 
 const log = LogManager.getLogger('nsdal-sublist');

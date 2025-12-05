@@ -5,7 +5,7 @@
 * See LICENSE file for additional information.
 */
 
-import { Parser } from './thirdparty/core/transactsql/transactsql.umd';
+import { Parser } from '../thirdparty/core/transactsql/transactsql.umd';
 
 // reference path="./thirdparty/transactsql/transactsql.umd.d.ts" />
 

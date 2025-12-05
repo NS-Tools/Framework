@@ -20,7 +20,7 @@ import { CustomerBase } from './DataAccess/BaseRecords/CustomerBase';
 import { ItemSublist, SalesOrderBase } from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType, NetsuiteRecord } from './DataAccess/Record';
 import type { Sublist } from './DataAccess/Sublist';
-import * as LogManager from './Logger';
+import * as LogManager from './utility/Logger';
 
 const log = LogManager.DefaultLogger;
 

@@ -11,7 +11,7 @@
  */
 
 import * as record from 'N/record';
-import * as LogManager from '../Logger';
+import * as LogManager from '../utility/Logger';
 import { FieldType as importFieldType } from './FieldType';
 
 const log = LogManager.getLogger('DataAccess.Record');
