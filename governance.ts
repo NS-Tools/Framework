@@ -14,7 +14,9 @@ import { DefaultLogger as log } from './Logger';
  * remaining and/or units thresholds.
  * @param startTime when to start counting elapsed time for clock-time governance, ms since the epoch (e.g. Date.now())
  * @param units threshold for minimum remaining governance units
- * @param minutes threshold for maximum number of minutes allowed to elapse
+ * @param minutes threshold for maximum number of minutes allowed to elapse.
+ *                Note: If not setting a minute value, pass {undefined} or a very high minute value. Using {null} will
+ *                      create undesired behavior (i.e., it will return false when comparing the elapsed time to null)
  * @example
  *
  * // defaults to 200 units threshold and starts elapsed time tracking at this invocation
@@ -42,6 +44,8 @@ export function governanceRemains(startTime = Date.now(), minutes = 45, units = 
  * Reschedules the current script using the same deployment id if we're out of governance
  * @param params optional script parameters to provide to the newly scheduled script
  * @param governancePredicate governance checker - if it returns false then script will reschedule.
+ * @param paramsCallback optional callback that will supply the params object. This can be useful if you have
+ * parameters that are updated after the point rescheduleIfNeeded is executed.
  * typically this would be your invocation of `governanceRemains()`
  * @example
  * results.takeWhile( rescheduleIfNeeded(governanceRemains()) ).filter(...).map(...)
@@ -49,22 +53,23 @@ export function governanceRemains(startTime = Date.now(), minutes = 45, units = 
  * ( so it can be invoked by takeWhile() as well)
  *
  */
-export function rescheduleIfNeeded(governancePredicate: () => boolean, params?: object) {
+export function rescheduleIfNeeded(governancePredicate: () => boolean, params?: object, paramsCallback?: () => object) {
 	return () => {
 		const governanceRemains = governancePredicate();
+		const effectiveParams = paramsCallback ? paramsCallback() : params;
+
 		if (!governanceRemains) {
-			log.warn(
-				'out of governance, rescheduling',
-				task
-					.create({
-						taskType: task.TaskType.SCHEDULED_SCRIPT,
-						scriptId: runtime.getCurrentScript().id,
-						deploymentId: runtime.getCurrentScript().deploymentId,
-						params: params,
-					})
-					.submit(),
-			);
+			const taskId = task.create({
+					taskType: task.TaskType.SCHEDULED_SCRIPT,
+					scriptId: runtime.getCurrentScript().id,
+					deploymentId: runtime.getCurrentScript().deploymentId,
+					params: effectiveParams,
+				})
+				.submit();
+
+			log.warn('out of governance, rescheduling', `Task ID ${taskId} with params ${JSON.stringify(effectiveParams)}`);
 		}
+
 		return governanceRemains;
 	};
 }
