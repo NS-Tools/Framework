@@ -18,11 +18,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-8.0.1/EC_Logger", "./NFT-SS2-8.0.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-8.0.1/DataAccess/Record", "./NFT-SS2-8.0.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-8.0.1/search", "./NFT-SS2-8.0.1/query", "N/search", "./NFT-SS2-8.0.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-8.0.1/lodash", "./NFT-SS2-8.0.1/DataAccess/ServiceItemBase", "./NFT-SS2-8.0.1/queryAutoMapper", "./NFT-SS2-8.0.1/bignumber"], factory);
+        define(["require", "exports", "./NFT-SS2-8.0.1/Logger", "./NFT-SS2-8.0.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-8.0.1/DataAccess/Record", "./NFT-SS2-8.0.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-8.0.1/search", "./NFT-SS2-8.0.1/query", "N/search", "./NFT-SS2-8.0.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-8.0.1/lodash", "./NFT-SS2-8.0.1/DataAccess/ServiceItemBase", "./NFT-SS2-8.0.1/queryAutoMapper", "./NFT-SS2-8.0.1/bignumber"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    const LogManager = require("./NFT-SS2-8.0.1/EC_Logger");
+    const LogManager = require("./NFT-SS2-8.0.1/Logger");
     const ItemFulfillmentBase_1 = require("./NFT-SS2-8.0.1/DataAccess/ItemFulfillmentBase");
     const Record_1 = require("./NFT-SS2-8.0.1/DataAccess/Record");
     const AddressBase_1 = require("./NFT-SS2-8.0.1/DataAccess/AddressBase");

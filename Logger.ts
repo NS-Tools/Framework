@@ -412,13 +412,13 @@ export interface AutoLogConfig {
  *
  * @example To make a client script log to both the local browser console and the NS script execution log
  *```
- * import * as LogManager from "./NFT/EC_Logger"
+ * import * as LogManager from "./NFT/Logger"
  *
  * LogManager.addAppender(new LogManager.ExecutionLogAppender())
  *```
  * @example
  *```
- * import * as LogManager from "./NFT/EC_Logger"
+ * import * as LogManager from "./NFT/Logger"
  * const log = LogManager.DefaultLogger
  * log.debug('hello world')
  * ```

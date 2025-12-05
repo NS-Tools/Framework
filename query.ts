@@ -16,7 +16,7 @@
  */
 
 import * as query from 'N/query';
-import * as LogManager from './EC_Logger';
+import * as LogManager from './Logger';
 
 /**
  * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`

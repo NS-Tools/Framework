@@ -16,7 +16,7 @@
  */
 
 import type { EntryPoints } from 'N/types';
-import * as LogManager from './NFT-SS2-8.0.1/EC_Logger';
+import * as LogManager from './NFT-SS2-8.0.1/Logger';
 import * as _ from './NFT-SS2-8.0.1/lodash';
 import { getColumns, mapQueryMRResults } from './NFT-SS2-8.0.1/queryAutoMapper';
 

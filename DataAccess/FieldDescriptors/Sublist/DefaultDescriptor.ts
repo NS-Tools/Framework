@@ -5,7 +5,7 @@
 * See LICENSE file for additional information.
 */
 
-import * as LogManager from '../../../EC_Logger';
+import * as LogManager from '../../../Logger';
 import { parseProp } from '../../Helpers';
 import type { SublistLine } from '../../Sublist';
 import { getSublistValue, setSublistValue } from './SublistValues';

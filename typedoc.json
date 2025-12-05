@@ -1,8 +1,8 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "name": "NS Tools/DAL",
-  "entryPoints": ["EC_Logger.ts", "geography.ts", "governance.ts", "search.ts", "query.ts", "DataAccess"],
-  "entryPointStrategy": "Expand",
+  "name": "NS Tools/Framework",
+  "entryPoints": ["Logger.ts", "geography.ts", "governance.ts", "search.ts", "query.ts", "DataAccess"],
+  "entryPointStrategy": "expand",
   "out": "docs",
   "includeVersion": true,
   "excludeExternals": true,

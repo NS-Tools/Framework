@@ -15,8 +15,8 @@ import * as cust from './DataAccess/BaseRecords/CustomerBase';
 import * as so from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType } from './DataAccess/Record';
 import type { Sublist } from './DataAccess/Sublist';
-import * as LogManager from './EC_Logger';
-import { autolog, DefaultLogger as log, logLevel } from './EC_Logger';
+import * as LogManager from './Logger';
+import { autolog, DefaultLogger as log, logLevel } from './Logger';
 import { LazySearch, nsSearchResult2obj } from './search';
 
 var customer = record.load({

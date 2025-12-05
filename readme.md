@@ -118,7 +118,7 @@ Works with SuiteScript 2.0 and 2.1.
  * @NScriptType Suitelet
  */
 
-import * as LogManager from 'NFT/EC_Logger'
+import * as LogManager from 'NFT/Logger'
 import {CustomerBase} from  'NFT/BaseRecords/DataAccess/CustomerBase'
 import {FieldType} from 'NFT/DataAccess/Record'
 import {SublistFieldType,Sublist,SublistLine} from 'NFT/DataAccess/Sublist'

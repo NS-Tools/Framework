@@ -7,7 +7,7 @@
 
 import * as runtime from 'N/runtime';
 import * as task from 'N/task';
-import { DefaultLogger as log } from './EC_Logger';
+import { DefaultLogger as log } from './Logger';
 
 /**
  * returns a predicate function which returns true if we're not out of governance, false if we have reached time
