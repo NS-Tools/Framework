@@ -6,7 +6,7 @@
 */
 
 import * as format from 'N/format';
-import * as LogManager from '../../../Logger';
+import * as LogManager from '../../../utility/Logger';
 import type { NetsuiteCurrentRecord } from '../../Record';
 
 const log = LogManager.getLogger('DataAccess.Record');

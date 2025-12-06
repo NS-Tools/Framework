@@ -9,7 +9,7 @@
  * Basic tests for geographic info (states and countries)
  */
 
-import { getCountryById, getCountryByUniqueKey, getStateById, getStateByShortName } from '../geography';
+import { getCountryById, getCountryByUniqueKey, getStateById, getStateByShortName } from '../utility/geography';
 
 describe('get states info', () => {
 	test('get WA by id', () => {

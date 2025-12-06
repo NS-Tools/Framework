@@ -6,7 +6,7 @@
 */
 
 import type * as query from 'N/query';
-import { nsQueryResult2obj } from '../query';
+import { nsQueryResult2obj } from '../utility/query';
 
 describe('nsQueryResult2obj', () => {
 	function getFakeSearchResult(): query.Result {

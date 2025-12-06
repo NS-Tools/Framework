@@ -1,10 +1,12 @@
+#!/usr/bin/env bash
+
 cd $WORKSPACE_PATH;
 
 rm -rf $WORKSPACE_PATH/dist;
 rm -rf $WORKSPACE_PATH/thirdparty/core;
 
 # make Third Party folder
-mkdir -p $WORKSPACE_PATH/thirdparty/core/{aurelia-logging,transactsql}/
+mkdir -p $WORKSPACE_PATH/thirdparty/core/{aurelia-logging,transactsql}
 
 # Build Third Party folders
 # Aurelia Logging

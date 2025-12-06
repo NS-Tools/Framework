@@ -6,7 +6,7 @@
 */
 
 import type * as search from 'N/search';
-import { nsSearchResult2obj } from '../search';
+import { nsSearchResult2obj } from '../utility/search';
 
 /**
  * @TODO: Research search.ts, and evaluate which tests need to be performed. 

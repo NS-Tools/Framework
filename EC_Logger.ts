@@ -6,8 +6,8 @@
 */
 
 /** 
- * Reexport Logger exports from ./Logger
- * @deprecated Use direct imports from './Logger' instead.
+ * Reexport Logger exports from ./utility/Logger
+ * @deprecated Use direct imports from './utility/Logger' instead.
  */
 export {
     type Appender,
@@ -31,4 +31,4 @@ export {
     AutoLogConfig,
     DefaultLogger,
     setCorrelationId
-} from './Logger';
+} from './utility/Logger';

@@ -14,7 +14,7 @@
 
 import * as error from 'N/error';
 import type * as record from 'N/record';
-import * as LogManager from '../Logger';
+import * as LogManager from '../utility/Logger';
 import { SublistFieldType as importSublistFieldType } from './SublistFieldType';
 
 const log = LogManager.getLogger('nsdal-sublist');
