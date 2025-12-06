@@ -27,7 +27,7 @@
 
 import * as nslog from 'N/log';
 import * as runtime from 'N/runtime';
-import { type Appender, addAppender, clearAppenders, getLogger, type Logger, logLevel } from '../thirdparty/core/aurelia-logging/aurelia-logging';
+import { type Appender, addAppender, getLogger, type Logger, logLevel } from '../thirdparty/core/aurelia-logging/aurelia-logging';
 
 export {
 	type Appender,
