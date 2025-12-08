@@ -171,7 +171,7 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 	/**
 	 * underlying netsuite record
 	 */
-	nsrecord: record.Record;
+	override nsrecord: record.Record;
 
 	/**
 	 * Persists this record to the NS database

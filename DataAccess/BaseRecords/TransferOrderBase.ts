@@ -39,7 +39,7 @@ export class TransferOrderBase extends TransactionBase {
 	nexus: number;
 
 	@FieldType.select
-	orderstatus: number;
+	override orderstatus: number;
 
 	@FieldType.checkbox
 	shipcomplete: boolean;

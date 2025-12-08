@@ -100,7 +100,7 @@ namespace C {
 	class SalesOrder extends so.SalesOrderBase {
 		@FieldType.sublist(so.ItemSublist)
 		// define a strongly typed item sublist
-		item: Sublist<so.ItemSublist>;
+		override item: Sublist<so.ItemSublist>;
 	}
 
 	const salesorder = new SalesOrder(1234);

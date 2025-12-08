@@ -103,7 +103,7 @@ export class CustomerRefundBase extends TransactionBase {
 	 * e.g. a credit memo on the customer refund
 	 * calls to nsrecord.setCurrentSublistValue()
 	 */
-	findApplyLine(docId: number) {
+	override findApplyLine(docId: number) {
 		return super.findApplyLine(docId);
 	}
 }

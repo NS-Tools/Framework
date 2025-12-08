@@ -2,7 +2,7 @@ import { Table, Column, TableFormat, TableRender } from '../utility/table';
 
 describe('Table', () => {
     class CustomRender extends TableRender {
-        render(): string {
+        override render(): string {
             return `${this.header()}\n${this.rows()}`;
         }
 

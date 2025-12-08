@@ -153,7 +153,7 @@ export class TableRender {
  * HTML Table Renderer
  */
 class TableRenderHtml extends TableRender {
-    render(): string {
+    override render(): string {
         return `<table><thead><tr>${this.header()}</tr></thead><tbody>${this.row()}</tbody></table>`;
     }
 
@@ -176,7 +176,7 @@ class TableRenderHtml extends TableRender {
  * CSV Table Renderer
  */
 class TableRenderCSV extends TableRender {
-    render(): string {
+    override render(): string {
         return `${this.header()}\n${this.row()}`;
     }
 

@@ -52,7 +52,7 @@ export class ChargeRuleBase extends TransactionBase {
 	chargeruletype: number;
 
 	@FieldType.select
-	customform: number;
+	override customform: number;
 
 	@FieldType.textarea
 	description: string;
@@ -64,7 +64,7 @@ export class ChargeRuleBase extends TransactionBase {
 	expamtmultiplier: number;
 
 	@FieldType.freeformtext
-	externalid: string;
+	override externalid: string;
 
 	@FieldType.freeformtext
 	frequency: string;
