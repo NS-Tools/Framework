@@ -1,0 +1,3 @@
+[submodule "thirdparty/optional"]
+	path = thirdparty/optional
+	url = https://github.com/NS-Tools/ThirdParty.git
