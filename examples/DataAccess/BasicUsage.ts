@@ -73,7 +73,7 @@ export namespace DALBasicUsage {
 
         // Override the default item sublist with our environment specific one with model category
         @FieldType.sublist(SalesOrderSublist)
-        item: Sublist<SalesOrderSublist>;
+        override item: Sublist<SalesOrderSublist>;
     }
 
     const order = new SalesOrder(1234);

@@ -34,5 +34,5 @@ export class IntercompanyJournalEntryBase extends JournalEntryBase {
 	}
 
 	@FieldType.sublist(LineSublist)
-	line: Sublist<LineSublist>;
+	override line: Sublist<LineSublist>;
 }

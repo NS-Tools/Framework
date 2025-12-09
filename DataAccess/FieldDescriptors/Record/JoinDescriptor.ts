@@ -5,7 +5,7 @@
 * See LICENSE file for additional information.
 */
 
-import * as LogManager from '../../../Logger';
+import * as LogManager from '../../../utility/Logger';
 import type { NetsuiteCurrentRecord } from '../../Record';
 
 const log = LogManager.getLogger('DataAccess.Record');

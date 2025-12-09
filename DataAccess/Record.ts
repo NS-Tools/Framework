@@ -11,7 +11,7 @@
  */
 
 import * as record from 'N/record';
-import * as LogManager from '../Logger';
+import * as LogManager from '../utility/Logger';
 import { FieldType as importFieldType } from './FieldType';
 
 const log = LogManager.getLogger('DataAccess.Record');
@@ -171,7 +171,7 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 	/**
 	 * underlying netsuite record
 	 */
-	nsrecord: record.Record;
+	override nsrecord: record.Record;
 
 	/**
 	 * Persists this record to the NS database

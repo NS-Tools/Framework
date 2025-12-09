@@ -33,16 +33,16 @@ export class TimeBase extends TransactionBase {
 	customer: number;
 
 	@FieldType.select
-	customform: number;
+	override customform: number;
 
 	@FieldType.select
-	department: number;
+	override department: number;
 
 	@FieldType.select
 	employee: number;
 
 	@FieldType.freeformtext
-	externalid: string;
+	override externalid: string;
 
 	@FieldType.freeformtext
 	hours: string;
@@ -63,10 +63,10 @@ export class TimeBase extends TransactionBase {
 	item: number;
 
 	@FieldType.select
-	location: number;
+	override location: number;
 
 	@FieldType.textarea
-	memo: string;
+	override memo: string;
 
 	@FieldType.freeformtext
 	overriderate: string;
@@ -93,7 +93,7 @@ export class TimeBase extends TransactionBase {
 	serviceitem: number;
 
 	@FieldType.select
-	subsidiary: number;
+	override subsidiary: number;
 
 	@FieldType.checkbox
 	supervisorapproval: boolean;
@@ -108,5 +108,5 @@ export class TimeBase extends TransactionBase {
 	timetype: number;
 
 	@FieldType.date
-	trandate: Date;
+	override trandate: Date;
 }

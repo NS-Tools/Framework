@@ -10,7 +10,7 @@
 
 import * as mockruntime from '../__mocks__/N/runtime';
 import * as mocktask from '../__mocks__/N/task';
-import { governanceRemains, rescheduleIfNeeded } from '../governance';
+import { governanceRemains, rescheduleIfNeeded } from '../utility/governance';
 
 describe('governance', () => {
 	const getRemainingUsage = mockruntime.getCurrentScript().getRemainingUsage;

@@ -88,7 +88,7 @@ export class ReturnAuthorizationBase extends TransactionBase {
 	messagesel: number;
 
 	@FieldType.select
-	orderstatus: number;
+	override orderstatus: number;
 
 	@FieldType.checkbox
 	tobeemailed: boolean;

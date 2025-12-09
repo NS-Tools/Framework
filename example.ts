@@ -20,7 +20,7 @@ import { CustomerBase } from './DataAccess/BaseRecords/CustomerBase';
 import { ItemSublist, SalesOrderBase } from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType, NetsuiteRecord } from './DataAccess/Record';
 import type { Sublist } from './DataAccess/Sublist';
-import * as LogManager from './Logger';
+import * as LogManager from './utility/Logger';
 
 const log = LogManager.DefaultLogger;
 
@@ -43,13 +43,13 @@ class Customer extends CustomerBase {
 // you add fields that aren't already in SalesOrderBase here (e.g. custom fields, some less frequently used native fields)
 class SalesOrder extends SalesOrderBase {
 	@FieldType.sublist(ItemSublist)
-	item: Sublist<ItemSublist>;
+	override item: Sublist<ItemSublist>;
 }
 
 // Example Custom Record definition
 // see the CodeGeneration/ folder for ways to autogenerate classes for your custom records.
 class MyCustomRecord extends NetsuiteRecord {
-	static recordType() {
+	static override recordType() {
 		return 'customrecord_myrecordid';
 	}
 
@@ -98,7 +98,7 @@ function demoSalesOrderLineItems() {
 	// find first line item with specific item
 	let firstLineWithItem123: ItemSublist | undefined;
 	for (const item of so.item) {
-		if (item.item == 123) {
+		if (item.item === 123) {
 			firstLineWithItem123 = item;
 			break;
 		}

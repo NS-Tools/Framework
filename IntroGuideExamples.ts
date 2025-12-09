@@ -15,9 +15,9 @@ import * as cust from './DataAccess/BaseRecords/CustomerBase';
 import * as so from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType } from './DataAccess/Record';
 import type { Sublist } from './DataAccess/Sublist';
-import * as LogManager from './Logger';
-import { autolog, DefaultLogger as log, logLevel } from './Logger';
-import { LazySearch, nsSearchResult2obj } from './search';
+import * as LogManager from './utility/Logger';
+import { autolog, DefaultLogger as log, logLevel } from './utility/Logger';
+import { LazySearch, nsSearchResult2obj } from './utility/search';
 
 var customer = record.load({
 	type: record.Type.CUSTOMER,
@@ -100,7 +100,7 @@ namespace C {
 	class SalesOrder extends so.SalesOrderBase {
 		@FieldType.sublist(so.ItemSublist)
 		// define a strongly typed item sublist
-		item: Sublist<so.ItemSublist>;
+		override item: Sublist<so.ItemSublist>;
 	}
 
 	const salesorder = new SalesOrder(1234);
