@@ -5,7 +5,7 @@
 * See LICENSE file for additional information.
 */
 
-import type { NetsuiteCurrentRecord } from "DataAccess/Record";
+import type { NetsuiteCurrentRecord } from "../../Record";
 import type * as record from 'N/record';
 import type { SublistLine } from '../../Sublist';
 
