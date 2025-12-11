@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  *
@@ -27,7 +27,13 @@
 
 import * as nslog from 'N/log';
 import * as runtime from 'N/runtime';
-import { type Appender, addAppender, getLogger, type Logger, logLevel } from '../thirdparty/core/aurelia-logging/aurelia-logging';
+import {
+	type Appender,
+	addAppender,
+	getLogger,
+	type Logger,
+	logLevel,
+} from '../thirdparty/core/aurelia-logging/aurelia-logging';
 
 export {
 	type Appender,

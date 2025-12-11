@@ -1,12 +1,12 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
-import type { NetsuiteCurrentRecord } from "../../Record";
 import type * as record from 'N/record';
+import type { NetsuiteCurrentRecord } from '../../Record';
 import type { SublistLine } from '../../Sublist';
 
 /**

@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 import * as LogManager from '../../../utility/Logger';
 import { parseProp } from '../../Helpers';
@@ -21,15 +21,15 @@ const log = LogManager.getLogger('nsdal-sublist');
  * with Object.defineProperty
  */
 export function DefaultDescriptor<T extends SublistLine>(target: T, propertyKey: string): any {
-    log.debug('creating default descriptor', `field: ${propertyKey}`);
-    const [isTextField, nsfield] = parseProp(propertyKey);
-    return {
-        get: function (this: SublistLine) {
-            return getSublistValue.call(this, nsfield, isTextField);
-        },
-        set: function (this: SublistLine, value) {
-            setSublistValue.call(this, nsfield, value, isTextField);
-        },
-        enumerable: true, //default is false
-    };
+	log.debug('creating default descriptor', `field: ${propertyKey}`);
+	const [isTextField, nsfield] = parseProp(propertyKey);
+	return {
+		get: function (this: SublistLine) {
+			return getSublistValue.call(this, nsfield, isTextField);
+		},
+		set: function (this: SublistLine, value) {
+			setSublistValue.call(this, nsfield, value, isTextField);
+		},
+		enumerable: true, //default is false
+	};
 }
