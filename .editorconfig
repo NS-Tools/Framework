@@ -13,6 +13,6 @@ charset = utf-8
 
 # 4 spaces indentation
 [*.{ts,js}]
-indent_style = spaces
+indent_style = space
 indent_size = 4
 tab_width = 4
