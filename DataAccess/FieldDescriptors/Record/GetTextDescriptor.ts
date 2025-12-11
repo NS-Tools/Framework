@@ -5,7 +5,7 @@
  * See LICENSE file for additional information.
  */
 
-import { parseProp } from '../../Helpers';
+//import { parseProp } from '../../Helpers';
 import type { NetsuiteCurrentRecord } from '../../Record';
 import { DefaultFieldDescriptor } from './DefaultFieldDescriptor';
 
@@ -15,9 +15,9 @@ import { DefaultFieldDescriptor } from './DefaultFieldDescriptor';
  * @param classReference
  * @returns
  */
-export function GetTextDescriptor<T extends NetsuiteCurrentRecord>(joinedFieldId: string, classReference) {
+export function GetTextDescriptor<T extends NetsuiteCurrentRecord>(_joinedFieldId: string, classReference) {
 	return (target: T, propertyKey: string) => {
-		const [isTextField, nsfield] = parseProp(propertyKey);
+		//const [isTextField, nsfield] = parseProp(propertyKey);
 		const privateInstanceKey = `__join_${propertyKey}`;
 
 		Object.defineProperty(target, propertyKey, {

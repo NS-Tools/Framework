@@ -5,12 +5,13 @@
  * See LICENSE file for additional information.
  */
 
+// biome-ignore-all lint/correctness/noUnusedVariables: This is an example file so some variables are intentionally unused.
+
 //region load customer example
 
 //region logging
 import * as nslog from 'N/log';
 import * as record from 'N/record';
-import type * as search from 'N/search';
 import * as cust from './DataAccess/BaseRecords/CustomerBase';
 import * as so from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType } from './DataAccess/Record';

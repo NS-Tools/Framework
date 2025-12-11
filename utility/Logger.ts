@@ -90,11 +90,14 @@ function log(loglevel: number, logger: Logger, ...rest: any[]) {
 	if (includeCorrelationId) {
 		prefix += `${correlationId}>`;
 	}
+
 	// prefix all loggers except the 'default' one used by top level code
 	if (logger.id !== 'default') {
 		prefix += `[${logger.id}]`;
 	}
-	nslog[toNetSuiteLogLevel(loglevel)]({ title: `${prefix} ${title}`, details: details });
+
+	// biome-ignore lint/performance/noDynamicNamespaceImportAccess: Since this is a Netsuite module it will be fully loaded regardless.
+	nslog[toNetSuiteLogLevel(loglevel)](`${prefix} ${title}`, details);
 }
 
 /**
@@ -264,7 +267,8 @@ export function autolog<T extends (...args: any[]) => any>(fn: T, config?: AutoL
 	// logger name on which to autolog, default to the top level 'Default' logger used by scripts
 	const logger = config.logger || DefaultLogger;
 	// logging level specified in config else default to debug. need to translate from number loglevels back to names
-	const level = findKey(logLevel, (o) => o === (config!.logLevel || logLevel.debug))!;
+	// @TODO: Add a test for validating that find key is working as expected.
+	const level = findKey(logLevel, (o) => o === (config?.logLevel ?? logLevel.debug));
 	return function (...args: Parameters<T>): ReturnType<T> {
 		// record function entry with details for every method on our explore object
 		const entryTitle = `Enter ${fn.name}() ${getGovernanceMessage(withGovernance)}`;

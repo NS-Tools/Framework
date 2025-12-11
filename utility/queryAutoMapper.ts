@@ -101,6 +101,8 @@ export function getColumns(queryStr: NoAsterisk<string>): string[] {
 
 	const parser = new Parser();
 	const par = parser.astify(queryStr);
+
+	// biome-ignore lint/complexity/useLiteralKeys: The AST interface doesn't show a column property. @TODO: See if we can replace parser.astify with parser.getColumns.
 	return par['columns'].map((t) => {
 		var colName = t.as ?? t.expr.column ?? null;
 		if (t.expr.type === 'function' && colName === null) {
