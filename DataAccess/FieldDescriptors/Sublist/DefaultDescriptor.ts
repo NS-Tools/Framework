@@ -20,7 +20,7 @@ const log = LogManager.getLogger('nsdal-sublist');
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function DefaultDescriptor<T extends SublistLine>(target: T, propertyKey: string): any {
+export function DefaultDescriptor<T extends SublistLine>(_target: T, propertyKey: string): any {
 	log.debug('creating default descriptor', `field: ${propertyKey}`);
 	const [isTextField, nsfield] = parseProp(propertyKey);
 	return {

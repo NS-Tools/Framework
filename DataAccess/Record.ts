@@ -85,7 +85,7 @@ export abstract class NetsuiteCurrentRecord {
 		} else if (typeof rec === 'object') {
 			log.debug('using existing record', `type:${rec.type}, id:${rec.id}`);
 			this.makeRecordProp(rec);
-			this._id = rec.id!;
+			this._id = rec?.id;
 		}
 		// allow
 		else if (typeof rec === 'number' || +rec) {
@@ -98,7 +98,7 @@ export abstract class NetsuiteCurrentRecord {
 					defaultValues: defaultValues,
 				}),
 			);
-			this._id = this.nsrecord.id!;
+			this._id = this.nsrecord?.id;
 		} else
 			throw new Error(`invalid value for argument "rec": ${rec}. 
       Must be one of: null/undefined, an internal id, or an existing record`);

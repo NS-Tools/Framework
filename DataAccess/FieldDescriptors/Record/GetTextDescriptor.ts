@@ -9,6 +9,12 @@ import { parseProp } from '../../Helpers';
 import type { NetsuiteCurrentRecord } from '../../Record';
 import { DefaultFieldDescriptor } from './DefaultFieldDescriptor';
 
+/**
+ * @private WIP descriptor for using getText on new records.
+ * @param joinedFieldId
+ * @param classReference
+ * @returns
+ */
 export function GetTextDescriptor<T extends NetsuiteCurrentRecord>(joinedFieldId: string, classReference) {
 	return (target: T, propertyKey: string) => {
 		const [isTextField, nsfield] = parseProp(propertyKey);

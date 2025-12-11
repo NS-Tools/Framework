@@ -112,5 +112,7 @@ export function getColumns(queryStr: NoAsterisk<string>): string[] {
 		if (colName != null) {
 			return colName as string;
 		}
+
+		return '';
 	});
 }

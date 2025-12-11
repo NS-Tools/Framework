@@ -63,8 +63,8 @@ export function nsSearchResult2obj<T = {}>(
 	return (result: search.Result) => {
 		const output: { id: string; recordType?: string | search.Type } = { id: result.id, recordType: result.recordType };
 		// assigns each column VALUE from the search result to the output object
-		if (result.columns && result.columns.length > 0)
-			result.columns.forEach((col) => {
+		if (result.columns && result.columns.length > 0) {
+			for (const col of result.columns) {
 				const propName = useLabels && col.label ? col.label : col.name;
 				output[propName] = result.getValue(col);
 				// if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
@@ -72,7 +72,8 @@ export function nsSearchResult2obj<T = {}>(
 					const text = result.getText(col);
 					if (text) output[`${propName}Text`] = text;
 				}
-			});
+			}
+		}
 		return output as BaseSearchResult<T>;
 	};
 }
@@ -185,7 +186,7 @@ export class LazySearch implements IterableIterator<search.Result> {
 	 * @param pageSize optional pagesize, can be up to 1000
 	 */
 	private constructor(
-		private search: search.Search,
+		search: search.Search,
 		private pageSize = 1000,
 	) {
 		if (pageSize > 1000) throw new Error('page size must be <= 1000');

@@ -24,7 +24,7 @@ const log = LogManager.getLogger('DataAccess.Record');
  */
 export function FormattedDescriptor<T extends NetsuiteCurrentRecord>(
 	formatType: format.Type,
-	target: T,
+	_target: T,
 	propertyKey: string,
 ): any {
 	return {

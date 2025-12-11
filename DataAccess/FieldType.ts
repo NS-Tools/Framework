@@ -8,7 +8,6 @@
 import { AliasDescriptor } from './FieldDescriptors/Record/AliasDescriptor';
 import { DefaultFieldDescriptor } from './FieldDescriptors/Record/DefaultFieldDescriptor';
 import { GetTextDescriptor } from './FieldDescriptors/Record/GetTextDescriptor';
-import { JoinDescriptor } from './FieldDescriptors/Record/JoinDescriptor';
 import { NumericDescriptor } from './FieldDescriptors/Record/NumericDescriptor';
 import { SublistDescriptor } from './FieldDescriptors/Record/SublistDescriptor';
 import { SubRecordDescriptor } from './FieldDescriptors/Record/SubRecordDescriptor';

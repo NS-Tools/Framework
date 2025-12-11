@@ -11,7 +11,6 @@
 
 import * as record from 'N/record';
 import { FieldType } from '../Record';
-import { SublistFieldType, SublistLine } from '../Sublist';
 import * as to from './TransferOrderBase';
 
 /**

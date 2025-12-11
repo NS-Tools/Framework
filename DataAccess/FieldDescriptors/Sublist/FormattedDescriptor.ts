@@ -21,7 +21,7 @@ const log = LogManager.getLogger('nsdal-sublist');
  * @returns  an object property descriptor to be used
  * with decorators
  */
-export function FormattedDescriptor(formatType: format.Type, target: any, propertyKey: string): any {
+export function FormattedDescriptor(formatType: format.Type, _target: any, propertyKey: string): any {
 	return {
 		get: function (this: SublistLine) {
 			log.debug(`getting formatted field [${propertyKey}]`);

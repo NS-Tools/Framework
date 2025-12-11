@@ -78,7 +78,9 @@ export let includeCorrelationId = false;
  * 1234> Another log title from the same run of the script
  * 5683> Log message from a subsequent execution of the script
  */
-export const setIncludeCorrelationId = (enable: boolean) => (includeCorrelationId = enable);
+export const setIncludeCorrelationId = (enable: boolean) => {
+	includeCorrelationId = enable;
+};
 
 // internal function to invoke the ns log function and handles adding a title tag
 function log(loglevel: number, logger: Logger, ...rest: any[]) {
@@ -177,6 +179,7 @@ function getGovernanceMessage(governanceEnabled: boolean) {
  * // => 'barney' (iteration order is not guaranteed)
  */
 function findKey(object, predicate) {
+	// biome-ignore lint/suspicious/noImplicitAnyLet: @TODO: Look into seeing if we can give a more explicit type to this.
 	let result;
 
 	if (object == null) {
@@ -435,7 +438,9 @@ export const DefaultLogger: Logger = defaultLogger;
  * Use to set the correlation id to a value other than the default random number
  * @param value new correlation id, will be used on all subsequent log messages for the current script execution
  */
-export const setCorrelationId = (value: string) => (correlationId = value);
+export const setCorrelationId = (value: string) => {
+	correlationId = value;
+};
 
 /**
  * Adds the passed aurelia logging console (browser/node) appender with diagnostic logging
@@ -458,12 +463,12 @@ declare function require(deps: string | string[], cb?: (...args: any[]) => void)
 // if we're executing client side, default to using the browser console for logging to avoid
 // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
 // global 'console' variable and will fail to load if it's not defined.
-declare var window;
+declare var window: Window;
 
 // if we're running in nodejs (i.e. unit tests) load the console appender using node require()
 if (typeof module === 'object') addConsoleAppender(require('aurelia-logging-console'));
 // Else detect NS client script and use NS's async require() to avoid blocking
-else if (typeof console === 'object' && typeof window === 'object' && window.alert)
+else if (typeof console === 'object' && typeof window === 'object' && !!window.alert)
 	require(['../thirdparty/core/aurelia-logging/aurelia-logging-console'], addConsoleAppender);
 // otherwise go ahead and log to the execution log (assume server-side suitescript)
 else addAppender(new ExecutionLogAppender());
