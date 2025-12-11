@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * parses a property name from a declaration (supporting 'Text' suffix per our convention)
@@ -22,11 +22,11 @@ export const parseProp = suffixParser('Text');
  * the stripped property name (with suffix removed)]
  */
 export function suffixParser(suffixToSearch: string): (propertyKey: string) => [boolean, string] {
-    const suffixLength = suffixToSearch.length;
-    return (propertyKey: string) => {
-        const endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch;
-        return [endsWithSuffix, endsWithSuffix ? propertyKey.slice(0, -suffixLength) : propertyKey];
-    };
+	const suffixLength = suffixToSearch.length;
+	return (propertyKey: string) => {
+		const endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch;
+		return [endsWithSuffix, endsWithSuffix ? propertyKey.slice(0, -suffixLength) : propertyKey];
+	};
 }
 
 /**

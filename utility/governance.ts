@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 import * as runtime from 'N/runtime';
 import * as task from 'N/task';
@@ -53,13 +53,18 @@ export function governanceRemains(startTime = Date.now(), minutes = 45, units = 
  * ( so it can be invoked by takeWhile() as well)
  *
  */
-export function rescheduleIfNeeded(governancePredicate: () => boolean, params?: object, paramsCallback?: (params?: object) => object) {
+export function rescheduleIfNeeded(
+	governancePredicate: () => boolean,
+	params?: object,
+	paramsCallback?: (params?: object) => object,
+) {
 	return () => {
 		const governanceRemains = governancePredicate();
 		const effectiveParams = paramsCallback ? paramsCallback(params) : params;
 
 		if (!governanceRemains) {
-			const taskId = task.create({
+			const taskId = task
+				.create({
 					taskType: task.TaskType.SCHEDULED_SCRIPT,
 					scriptId: runtime.getCurrentScript().id,
 					deploymentId: runtime.getCurrentScript().deploymentId,

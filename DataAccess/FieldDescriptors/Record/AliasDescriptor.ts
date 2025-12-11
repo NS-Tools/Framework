@@ -1,16 +1,16 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 import type { NetsuiteCurrentRecord } from '../../Record';
 
 /**
  * Helper field descriptor to create an alias property that maps to another field id
  * Example usage
- * 
+ *
  * class Customer extends CustomerBase {
  *   @FieldType.freeformtext
  *   custentity1: string;
@@ -21,7 +21,7 @@ import type { NetsuiteCurrentRecord } from '../../Record';
  * const customer = new Customer(123);
  * // set via alias, will update the Netsuite underlying field custentity1
  * customer.my_descriptive_name = 'Hello World';
- * 
+ *
  * @param fieldId
  * @returns any
  */

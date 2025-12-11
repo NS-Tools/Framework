@@ -1,19 +1,21 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 import * as log from 'N/log';
-import { FieldType } from "../../DataAccess/FieldType";
-import { NetsuiteRecord } from "../../DataAccess/Record";
+import { FieldType } from '../../DataAccess/FieldType';
+import { NetsuiteRecord } from '../../DataAccess/Record';
 
 class CustomRecord extends NetsuiteRecord {
-	static override recordType() { return 'customrecord_my_custom_record';}
-    
-    @FieldType.freeformtext
-    custrecord_name: string;
+	static override recordType() {
+		return 'customrecord_my_custom_record';
+	}
+
+	@FieldType.freeformtext
+	custrecord_name: string;
 }
 
 const myCustomRecord = new CustomRecord(123);

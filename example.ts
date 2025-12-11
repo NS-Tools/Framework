@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Test file for SuiteScript 2.0
@@ -29,7 +29,6 @@ class Customer extends CustomerBase {
 	// as the internal id value
 	@FieldType.select
 	subsidiaryText: string;
-
 
 	// Field alias example.
 	@FieldType.checkbox
@@ -77,7 +76,7 @@ function demoSalesOrderLineItems() {
 	const line = so.item[0];
 	line.rate = 20;
 
-	// get all line items over $50 amount 
+	// get all line items over $50 amount
 	let hasLinesover50 = false;
 	for (const item of so.item) {
 		if (item.amount > 50.0) {
