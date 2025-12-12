@@ -19,7 +19,7 @@ const log = LogManager.getLogger('DataAccess.Record');
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function NumericDescriptor<T extends NetsuiteCurrentRecord>(target: T, propertyKey: string): any {
+export function NumericDescriptor<T extends NetsuiteCurrentRecord>(_target: T, propertyKey: string): any {
 	const [isTextField, nsfield] = parseProp(propertyKey);
 	return {
 		get: function () {

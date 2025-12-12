@@ -17,7 +17,7 @@ import type { SublistLine } from '../../Sublist';
 export function SubRecordDescriptor<T extends NetsuiteCurrentRecord>(
 	ctor: new (rec: Omit<record.Record, 'save'>) => T,
 ) {
-	return (target: any, propertyKey: string): any => ({
+	return (_target: any, propertyKey: string): any => ({
 		enumerable: true,
 		// sublist is read-only for now - if we have a use case where this should be assigned then tackle it
 		get: function (this: SublistLine) {

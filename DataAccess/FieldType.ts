@@ -7,8 +7,6 @@
 
 import { AliasDescriptor } from './FieldDescriptors/Record/AliasDescriptor';
 import { DefaultFieldDescriptor } from './FieldDescriptors/Record/DefaultFieldDescriptor';
-import { GetTextDescriptor } from './FieldDescriptors/Record/GetTextDescriptor';
-import { JoinDescriptor } from './FieldDescriptors/Record/JoinDescriptor';
 import { NumericDescriptor } from './FieldDescriptors/Record/NumericDescriptor';
 import { SublistDescriptor } from './FieldDescriptors/Record/SublistDescriptor';
 import { SubRecordDescriptor } from './FieldDescriptors/Record/SubRecordDescriptor';
@@ -49,9 +47,7 @@ export namespace FieldType {
 	/**
 	 * Netsuite helper field types
 	 */
-	export const getText = GetTextDescriptor;
 	export const alias = AliasDescriptor;
-	//export const join = JoinDescriptor;
 
 	/**
 	 * this isn't a native NS 'field' type, but rather is used to indicate a property should represent a NS sub-list.
