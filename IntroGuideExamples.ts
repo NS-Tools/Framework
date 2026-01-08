@@ -107,7 +107,7 @@ namespace C {
 	const salesorder = new SalesOrder(1234);
 	salesorder.item; // already a collection of line items with fields defined by so.ItemSublist
 
-	const itemInfo: any[] = [];
+	const itemInfo: Record<string, unknown>[] = [];
 	for (const line of salesorder.item) {
 		itemInfo.push({
 			item: line.item,
