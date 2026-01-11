@@ -12,7 +12,7 @@ import { type Sublist, SublistFieldType, SublistLine } from '../DataAccess/Subli
 
 describe('Record base tests', () => {
 	test('getText() on field', () => {
-		const fakeRec = record.create({ type: 'fake' });
+		const fakeRec = record.create({ id: 123, type: 'fake' });
 		record.getText.mockReturnValue('some text');
 		record.getValue.mockReturnValue(123);
 
@@ -38,7 +38,7 @@ describe('Record base tests', () => {
 	});
 
 	test('getField() success', () => {
-		const fakeRec = record.create({ type: 'fake' });
+		const fakeRec = record.create({ id: 123, type: 'fake' });
 		record.getField.mockReturnValue({});
 
 		// this was a bug - a field with any of the characters in 'Text' got ALL such characters trimmed
@@ -76,7 +76,7 @@ describe('Record base tests', () => {
 			@FieldType.sublist(FakeSublist)
 			footSublist: Sublist<FakeSublist>;
 		}
-		const fakeRec = record.create({ type: 'fake' });
+		const fakeRec = record.create({ id: 123, type: 'fake' });
 		fakeRec.getLineCount.mockReturnValue(1);
 
 		const sut = new A(fakeRec);
@@ -102,7 +102,7 @@ describe('Record base tests', () => {
 	 */
 	test('constructors', () => {
 		// a strongly typed NS record
-		const fakeRec: nsRecord.Record = record.create({ type: 'fake' });
+		const fakeRec: nsRecord.Record = record.create({ id: 123, type: 'fake' });
 
 		// an NSDAL record type
 		class A extends NetsuiteRecord {}

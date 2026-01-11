@@ -52,7 +52,7 @@ describe('instantiation', () => {
 	});
 
 	test('with record object', () => {
-		const c = new cust.CustomerBase(mockrecord.create({ type: 'foo' }));
+		const c = new cust.CustomerBase(mockrecord.create({ id: 123, type: 'foo' }));
 
 		expect(c).toBeTruthy();
 		// should not call load if we insantiate with an existing object
@@ -64,7 +64,7 @@ describe('instantiation', () => {
 	});
 
 	test('TransactionBase from existing record', () => {
-		const t = new TransactionBase(mockrecord.create({ type: 'foo' }));
+		const t = new TransactionBase(mockrecord.create({ id: 123, type: 'foo' }));
 		expect(t).toBeTruthy();
 		expect(t).toHaveProperty('otherrefnum');
 		// should not call load since we already have a record
@@ -158,7 +158,7 @@ describe('serialization', () => {
 		expect(serializedjson).toContain('accountnumber');
 		expect(serializedjson).toContain('email');
 		// id should always be there.
-		expect(serializedjson).toMatch(/"id".?:.?"123"/);
+		expect(serializedjson).toMatch(/"id".?:.?123/);
 		// JSON.stringify does not serialize undefined fields
 		expect(serializedjson).not.toContain('externalid');
 	});
