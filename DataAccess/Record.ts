@@ -78,6 +78,8 @@ export abstract class NetsuiteCurrentRecord {
 		// pull the 'static' recordType from the derived class and remove the need for derived classes to
 		// define a constructor to pass the record type to super()
 		const type = Object.getPrototypeOf(this).constructor.recordType();
+		let id: number | null | string | unknown;
+
 		if (!rec) {
 			// falsey values (e.g. invalid id 0, null, undefined, etc.) implies creating a new record
 			log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`);
@@ -85,7 +87,13 @@ export abstract class NetsuiteCurrentRecord {
 		} else if (typeof rec === 'object') {
 			log.debug('using existing record', `type:${rec.type}, id:${rec.id}`);
 			this.makeRecordProp(rec);
-			this._id = rec?.id;
+
+			id = rec.id;
+			if (Number.isNaN(Number(id)) || id === undefined || id === null) {
+				throw new Error(`Unable to load record with id: ${id}`);
+			}
+
+			this._id = Number(id);
 		}
 		// allow
 		else if (typeof rec === 'number' || +rec) {
@@ -98,7 +106,13 @@ export abstract class NetsuiteCurrentRecord {
 					defaultValues: defaultValues,
 				}),
 			);
-			this._id = this.nsrecord?.id;
+
+			id = this.nsrecord?.id;
+			if (Number.isNaN(Number(id)) || id === undefined || id === null) {
+				throw new Error(`Unable to load record with id: ${id}`);
+			}
+
+			this._id = Number(id);
 		} else
 			throw new Error(`invalid value for argument "rec": ${rec}. 
       Must be one of: null/undefined, an internal id, or an existing record`);
