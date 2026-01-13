@@ -1,12 +1,12 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 import type * as record from 'N/record';
-import * as LogManager from '../../../EC_Logger';
+import * as LogManager from '../../../utility/Logger';
 import { parseSublistProp } from '../../Helpers';
 import { Sublist, type SublistLine } from '../../Sublist';
 
@@ -22,7 +22,7 @@ export type LineConstructor<T extends SublistLine> = new (s: string, r: record.R
  * e.g. Invoice.ItemSublistLine
  */
 export function SublistDescriptor<T extends SublistLine>(ctor: LineConstructor<T>) {
-	return (target: any, propertyKey: string): any => {
+	return (_target: any, propertyKey: string): any => {
 		const [, nssublist] = parseSublistProp(propertyKey);
 		const privateProp = `_${nssublist}`;
 		return {

@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Defines the nsdal handling for record body fields.
@@ -11,7 +11,7 @@
  */
 
 import * as record from 'N/record';
-import * as LogManager from '../EC_Logger';
+import * as LogManager from '../utility/Logger';
 import { FieldType as importFieldType } from './FieldType';
 
 const log = LogManager.getLogger('DataAccess.Record');
@@ -78,6 +78,8 @@ export abstract class NetsuiteCurrentRecord {
 		// pull the 'static' recordType from the derived class and remove the need for derived classes to
 		// define a constructor to pass the record type to super()
 		const type = Object.getPrototypeOf(this).constructor.recordType();
+		let id: number | null | string | unknown;
+
 		if (!rec) {
 			// falsey values (e.g. invalid id 0, null, undefined, etc.) implies creating a new record
 			log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`);
@@ -85,7 +87,13 @@ export abstract class NetsuiteCurrentRecord {
 		} else if (typeof rec === 'object') {
 			log.debug('using existing record', `type:${rec.type}, id:${rec.id}`);
 			this.makeRecordProp(rec);
-			this._id = rec.id!;
+
+			id = rec.id;
+			if (Number.isNaN(Number(id)) || id === undefined || id === null) {
+				throw new Error(`Unable to load record with id: ${id}`);
+			}
+
+			this._id = Number(id);
 		}
 		// allow
 		else if (typeof rec === 'number' || +rec) {
@@ -98,7 +106,13 @@ export abstract class NetsuiteCurrentRecord {
 					defaultValues: defaultValues,
 				}),
 			);
-			this._id = this.nsrecord.id!;
+
+			id = this.nsrecord?.id;
+			if (Number.isNaN(Number(id)) || id === undefined || id === null) {
+				throw new Error(`Unable to load record with id: ${id}`);
+			}
+
+			this._id = Number(id);
 		} else
 			throw new Error(`invalid value for argument "rec": ${rec}. 
       Must be one of: null/undefined, an internal id, or an existing record`);
@@ -171,7 +185,7 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 	/**
 	 * underlying netsuite record
 	 */
-	nsrecord: record.Record;
+	override nsrecord: record.Record;
 
 	/**
 	 * Persists this record to the NS database

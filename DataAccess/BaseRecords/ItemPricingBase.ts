@@ -1,11 +1,10 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
-import * as record from 'N/record';
 import { FieldType, NetsuiteRecord } from '../Record';
 import { type Sublist, SublistFieldType, SublistLine } from '../Sublist';
 
@@ -30,6 +29,7 @@ export class DiscountSublist extends SublistLine {
  * NetSuite Item Pricing Record type with custom fields.
  */
 export class ItemPricingBase extends NetsuiteRecord {
+	// @TODO: Double check this record type
 	static override recordType() {
 		return 'itempricing';
 	}

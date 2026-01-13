@@ -1,12 +1,12 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 import * as format from 'N/format';
-import * as LogManager from '../../../EC_Logger';
+import * as LogManager from '../../../utility/Logger';
 import type { NetsuiteCurrentRecord } from '../../Record';
 
 const log = LogManager.getLogger('DataAccess.Record');
@@ -24,7 +24,7 @@ const log = LogManager.getLogger('DataAccess.Record');
  */
 export function FormattedDescriptor<T extends NetsuiteCurrentRecord>(
 	formatType: format.Type,
-	target: T,
+	_target: T,
 	propertyKey: string,
 ): any {
 	return {

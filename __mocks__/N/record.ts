@@ -1,12 +1,13 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 export const create = jest
 	.fn(function (config) {
+		this.id = config.id;
 		this.isDynamic = config.isDynamic;
 		this.type = config.type;
 		return this;

@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Represents a Customer Refund (customerrefund) transaction type in NetSuite
@@ -103,7 +103,7 @@ export class CustomerRefundBase extends TransactionBase {
 	 * e.g. a credit memo on the customer refund
 	 * calls to nsrecord.setCurrentSublistValue()
 	 */
-	findApplyLine(docId: number) {
+	override findApplyLine(docId: number) {
 		return super.findApplyLine(docId);
 	}
 }

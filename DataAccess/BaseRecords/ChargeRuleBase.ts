@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Charge Rule Base Record
@@ -52,7 +52,7 @@ export class ChargeRuleBase extends TransactionBase {
 	chargeruletype: number;
 
 	@FieldType.select
-	customform: number;
+	override customform: number;
 
 	@FieldType.textarea
 	description: string;
@@ -64,7 +64,7 @@ export class ChargeRuleBase extends TransactionBase {
 	expamtmultiplier: number;
 
 	@FieldType.freeformtext
-	externalid: string;
+	override externalid: string;
 
 	@FieldType.freeformtext
 	frequency: string;

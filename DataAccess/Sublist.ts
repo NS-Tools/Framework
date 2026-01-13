@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Represents Sublists and their field access. Sublists use a different api than body fields in NS.
@@ -14,7 +14,7 @@
 
 import * as error from 'N/error';
 import type * as record from 'N/record';
-import * as LogManager from '../EC_Logger';
+import * as LogManager from '../utility/Logger';
 import { SublistFieldType as importSublistFieldType } from './SublistFieldType';
 
 const log = LogManager.getLogger('nsdal-sublist');

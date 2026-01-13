@@ -6,6 +6,7 @@
     "declarationDir": "dist/declarations",
     "noImplicitAny": false,
     "strictNullChecks": true,
+    "noImplicitOverride": true,
     "moduleResolution": "node",
     "rootDirs": [
       "."
@@ -25,6 +26,7 @@
   "include": [
     "./*.ts",
     "DataAccess/**/*.ts",
+    "utility/**/*.ts",
     "examples/**/*.ts",
   ],
   "exclude": [

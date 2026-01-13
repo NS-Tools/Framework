@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * NS Base intercompany journal entry record (intercompanyjournalentry) - contains definitions for fields and sublists
@@ -34,5 +34,5 @@ export class IntercompanyJournalEntryBase extends JournalEntryBase {
 	}
 
 	@FieldType.sublist(LineSublist)
-	line: Sublist<LineSublist>;
+	override line: Sublist<LineSublist>;
 }

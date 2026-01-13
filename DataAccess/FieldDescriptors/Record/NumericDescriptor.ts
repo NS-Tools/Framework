@@ -1,11 +1,11 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
-import * as LogManager from '../../../EC_Logger';
+import * as LogManager from '../../../utility/Logger';
 import { parseProp } from '../../Helpers';
 import type { NetsuiteCurrentRecord } from '../../Record';
 
@@ -19,7 +19,7 @@ const log = LogManager.getLogger('DataAccess.Record');
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function NumericDescriptor<T extends NetsuiteCurrentRecord>(target: T, propertyKey: string): any {
+export function NumericDescriptor<T extends NetsuiteCurrentRecord>(_target: T, propertyKey: string): any {
 	const [isTextField, nsfield] = parseProp(propertyKey);
 	return {
 		get: function () {

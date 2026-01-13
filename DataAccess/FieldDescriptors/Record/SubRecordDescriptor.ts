@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 import type * as record from 'N/record';
 import type { NetsuiteCurrentRecord } from '../../Record';
@@ -15,7 +15,7 @@ import type { NetsuiteCurrentRecord } from '../../Record';
  * e.g. AssemblyBuild.InventoryDetail
  */
 export function SubRecordDescriptor<T extends NetsuiteCurrentRecord>(ctor: new (rec: record.Record) => T) {
-	return (target: any, propertyKey: string): any => ({
+	return (_target: any, propertyKey: string): any => ({
 		enumerable: true,
 		// sublist is read only for now - if we have a use case where this should be assigned then tackle it
 		get: function () {

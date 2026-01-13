@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Created by asariego on 4/8/24.
@@ -24,7 +24,7 @@ export class TimesheetBase extends TransactionBase {
 	approvalstatus: number;
 
 	@FieldType.select
-	customform: number;
+	override customform: number;
 
 	@FieldType.select
 	employee: number;
@@ -33,13 +33,13 @@ export class TimesheetBase extends TransactionBase {
 	enddate: Date;
 
 	@FieldType.freeformtext
-	externalid: string;
+	override externalid: string;
 
 	@FieldType.datetime
 	startdate: Date;
 
 	@FieldType.select
-	subsidiary: number;
+	override subsidiary: number;
 
 	@FieldType.select
 	timeGridList: number;

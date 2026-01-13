@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Credit Card Refund Base Record
@@ -37,7 +37,7 @@ export class CreditCardRefundBase extends TransactionBase {
 	cleareddate: Date;
 
 	@FieldType.datetime
-	createddate: Date;
+	override createddate: Date;
 
 	@FieldType.select
 	currency: number;
@@ -49,13 +49,13 @@ export class CreditCardRefundBase extends TransactionBase {
 	currencysymbol: string;
 
 	@FieldType.select
-	customform: number;
+	override customform: number;
 
 	@FieldType.select
-	department: number;
+	override department: number;
 
 	@FieldType.select
-	entity: number;
+	override entity: number;
 
 	@FieldType.freeformtext
 	entity_nexus_country: string;
@@ -67,19 +67,19 @@ export class CreditCardRefundBase extends TransactionBase {
 	exchangerate: number;
 
 	@FieldType.freeformtext
-	externalid: string;
+	override externalid: string;
 
 	@FieldType.checkbox
 	isbasecurrency: boolean;
 
 	@FieldType.datetime
-	lastmodifieddate: Date;
+	override lastmodifieddate: Date;
 
 	@FieldType.select
-	location: number;
+	override location: number;
 
 	@FieldType.freeformtext
-	memo: string;
+	override memo: string;
 
 	@FieldType.select
 	nexus: number;
@@ -88,10 +88,10 @@ export class CreditCardRefundBase extends TransactionBase {
 	nexus_country: string;
 
 	@FieldType.select
-	postingperiod: number;
+	override postingperiod: number;
 
 	@FieldType.select
-	subsidiary: number;
+	override subsidiary: number;
 
 	@FieldType.freeformtext
 	taxperiod: string;
@@ -106,10 +106,10 @@ export class CreditCardRefundBase extends TransactionBase {
 	total: number;
 
 	@FieldType.date
-	trandate: Date;
+	override trandate: Date;
 
 	@FieldType.freeformtext
-	tranid: string;
+	override tranid: string;
 
 	@FieldType.freeformtext
 	transactionnumber: string;

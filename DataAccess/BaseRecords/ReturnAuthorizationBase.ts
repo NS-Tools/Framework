@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Represents a Return Authorization (returnauthorization) transaction type in NetSuite
@@ -88,7 +88,7 @@ export class ReturnAuthorizationBase extends TransactionBase {
 	messagesel: number;
 
 	@FieldType.select
-	orderstatus: number;
+	override orderstatus: number;
 
 	@FieldType.checkbox
 	tobeemailed: boolean;

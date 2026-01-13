@@ -1,23 +1,24 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
+
+// biome-ignore-all lint/correctness/noUnusedVariables: This is an example file so some variables are intentionally unused.
 
 //region load customer example
 
 //region logging
 import * as nslog from 'N/log';
 import * as record from 'N/record';
-import type * as search from 'N/search';
 import * as cust from './DataAccess/BaseRecords/CustomerBase';
 import * as so from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType } from './DataAccess/Record';
 import type { Sublist } from './DataAccess/Sublist';
-import * as LogManager from './EC_Logger';
-import { autolog, DefaultLogger as log, logLevel } from './EC_Logger';
-import { LazySearch, nsSearchResult2obj } from './search';
+import * as LogManager from './utility/Logger';
+import { autolog, DefaultLogger as log, logLevel } from './utility/Logger';
+import { LazySearch, nsSearchResult2obj } from './utility/search';
 
 var customer = record.load({
 	type: record.Type.CUSTOMER,
@@ -100,13 +101,13 @@ namespace C {
 	class SalesOrder extends so.SalesOrderBase {
 		@FieldType.sublist(so.ItemSublist)
 		// define a strongly typed item sublist
-		item: Sublist<so.ItemSublist>;
+		override item: Sublist<so.ItemSublist>;
 	}
 
 	const salesorder = new SalesOrder(1234);
 	salesorder.item; // already a collection of line items with fields defined by so.ItemSublist
 
-	const itemInfo: any[] = [];
+	const itemInfo: Record<string, unknown>[] = [];
 	for (const line of salesorder.item) {
 		itemInfo.push({
 			item: line.item,

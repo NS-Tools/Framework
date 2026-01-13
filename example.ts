@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  * Test file for SuiteScript 2.0
@@ -20,7 +20,7 @@ import { CustomerBase } from './DataAccess/BaseRecords/CustomerBase';
 import { ItemSublist, SalesOrderBase } from './DataAccess/BaseRecords/SalesOrderBase';
 import { FieldType, NetsuiteRecord } from './DataAccess/Record';
 import type { Sublist } from './DataAccess/Sublist';
-import * as LogManager from './EC_Logger';
+import * as LogManager from './utility/Logger';
 
 const log = LogManager.DefaultLogger;
 
@@ -29,19 +29,26 @@ class Customer extends CustomerBase {
 	// as the internal id value
 	@FieldType.select
 	subsidiaryText: string;
+
+	// Field alias example.
+	@FieldType.checkbox
+	custentity1: boolean;
+
+	// You can now use cust.is_preferred_customer to read/write the value of custentity1
+	@FieldType.alias('custentity1') is_preferred_customer: boolean;
 }
 
 // the SalesOrderBase class has the item sublist fields already defined.
 // you add fields that aren't already in SalesOrderBase here (e.g. custom fields, some less frequently used native fields)
 class SalesOrder extends SalesOrderBase {
 	@FieldType.sublist(ItemSublist)
-	item: Sublist<ItemSublist>;
+	override item: Sublist<ItemSublist>;
 }
 
 // Example Custom Record definition
 // see the CodeGeneration/ folder for ways to autogenerate classes for your custom records.
 class MyCustomRecord extends NetsuiteRecord {
-	static recordType() {
+	static override recordType() {
 		return 'customrecord_myrecordid';
 	}
 
@@ -69,7 +76,7 @@ function demoSalesOrderLineItems() {
 	const line = so.item[0];
 	line.rate = 20;
 
-	// get all line items over $50 amount 
+	// get all line items over $50 amount
 	let hasLinesover50 = false;
 	for (const item of so.item) {
 		if (item.amount > 50.0) {
@@ -90,7 +97,7 @@ function demoSalesOrderLineItems() {
 	// find first line item with specific item
 	let firstLineWithItem123: ItemSublist | undefined;
 	for (const item of so.item) {
-		if (item.item == 123) {
+		if (item.item === 123) {
 			firstLineWithItem123 = item;
 			break;
 		}

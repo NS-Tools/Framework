@@ -1,9 +1,9 @@
 /*
-* Copyright 2016-2025 Explore Consulting
-* Copyright 2025-Present NS Tools Team
-*
-* See LICENSE file for additional information.
-*/
+ * Copyright 2016-2025 Explore Consulting
+ * Copyright 2025-Present NS Tools Team
+ *
+ * See LICENSE file for additional information.
+ */
 
 /**
  *  Represents an Intercompany Transfer Order (intercompanytransferorder) transaction type in NetSuite
@@ -11,7 +11,6 @@
 
 import * as record from 'N/record';
 import { FieldType } from '../Record';
-import { SublistFieldType, SublistLine } from '../Sublist';
 import * as to from './TransferOrderBase';
 
 /**

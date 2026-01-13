@@ -11,6 +11,7 @@
 
 import * as mockrecord from '../__mocks__/N/record';
 import * as cust from '../DataAccess/BaseRecords/CustomerBase';
+import { FieldType } from '../DataAccess/FieldType';
 import { SalesOrderBase } from '../DataAccess/BaseRecords/SalesOrderBase';
 import { TransactionBase } from '../DataAccess/BaseRecords/Transaction';
 
@@ -51,7 +52,7 @@ describe('instantiation', () => {
 	});
 
 	test('with record object', () => {
-		const c = new cust.CustomerBase(mockrecord.create({ type: 'foo' }));
+		const c = new cust.CustomerBase(mockrecord.create({ id: 123, type: 'foo' }));
 
 		expect(c).toBeTruthy();
 		// should not call load if we insantiate with an existing object
@@ -63,7 +64,7 @@ describe('instantiation', () => {
 	});
 
 	test('TransactionBase from existing record', () => {
-		const t = new TransactionBase(mockrecord.create({ type: 'foo' }));
+		const t = new TransactionBase(mockrecord.create({ id: 123, type: 'foo' }));
 		expect(t).toBeTruthy();
 		expect(t).toHaveProperty('otherrefnum');
 		// should not call load since we already have a record
@@ -113,6 +114,28 @@ describe('body field access', () => {
 		expect(mockrecord.getValue).toHaveBeenCalledTimes(1);
 		expect(mockrecord.setValue).not.toHaveBeenCalled();
 	});
+
+	describe('alias field access', () => {
+		class CustomerWithAlias extends cust.CustomerBase {
+			@FieldType.freeformtext
+			companyname: string;
+
+			@FieldType.alias('companyname')
+			companyalias: string;
+		}
+
+		test('read an alias field', () => {
+			const c = new CustomerWithAlias();
+			console.log(c.companyalias);
+			expect(mockrecord.getValue).toHaveBeenCalledWith({ fieldId: 'companyname' });
+		});
+
+		test('set an alias field', () => {
+			const c = new CustomerWithAlias();
+			c.companyalias = 'acme corp';
+			expect(mockrecord.setValue).toHaveBeenCalledWith({ fieldId: 'companyname', value: 'acme corp' });
+		});
+	});
 });
 
 describe('serialization', () => {
@@ -135,7 +158,7 @@ describe('serialization', () => {
 		expect(serializedjson).toContain('accountnumber');
 		expect(serializedjson).toContain('email');
 		// id should always be there.
-		expect(serializedjson).toMatch(/"id".?:.?"123"/);
+		expect(serializedjson).toMatch(/"id".?:.?123/);
 		// JSON.stringify does not serialize undefined fields
 		expect(serializedjson).not.toContain('externalid');
 	});

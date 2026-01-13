@@ -10,8 +10,11 @@
   "scripts": {
     "build": "./build.sh",
     "test": "jest --config test/jest.config.json",
-    "prepublishOnly": "tsc; gulp; gulp declarations",
-    "postinstall": ""
+    "postinstall": "",
+    "lint": "npx @biomejs/biome check --staged",
+    "lint:fix": "npx @biomejs/biome check --staged --write",
+    "lint:all": "npx @biomejs/biome check",
+    "lint:all:fix": "npx @biomejs/biome check --write"
   },
   "author": "NS Tools Team & Originally Explore Consulting",
   "license": "MIT",
